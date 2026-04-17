@@ -1,7 +1,7 @@
 /* Service Worker — Krótkofalarstwo Kompendium
    Strategia: cache-first dla statyk, network-first dla HTML (żeby zmiany się propagowały). */
 
-const CACHE = 'ham-radio-v2';
+const CACHE = 'ham-radio-v3';
 const ASSETS = [
     './',
     './index.html',

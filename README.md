@@ -17,7 +17,6 @@ Działa również offline (PWA).
   przemienniki, sieci cyfrowe (DMR TG 260, D-STAR, Echolink), CB, PMR446, FT8.
 - **Locator Maidenhead** — budowa + tabela polskich miast.
 - **DXCC** — prefiksy polskie + popularne kraje + okręgi wywoławcze SP1–SP9.
-- **Licencje UKE** — kategorie 1/2/3 + klubowe.
 - **Emisje** — CW, SSB, FM, AM, RTTY, PSK31, FT8/FT4, JS8, VARA, DMR, D-STAR, C4FM.
 - **Programy dyplomowe** — SOTA, POTA, IOTA, WWFF, WCA, WWB, DXCC, WAS, WAZ, WAC.
 - **QRZ.com i dzienniki łączności** — pełny przewodnik: rejestracja, biografia, logbook,
