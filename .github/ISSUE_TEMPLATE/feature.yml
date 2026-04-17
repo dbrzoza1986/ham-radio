@@ -1,0 +1,21 @@
+name: Propozycja nowej funkcji
+description: Nowy kalkulator, nowa sekcja, usprawnienie UX.
+title: "[Propozycja] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Co proponujesz?
+      placeholder: Np. kalkulator długości anteny Yagi, sekcja o DX-peditions…
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes:
+      label: Dlaczego to przydatne?
+      placeholder: Rozwiązuje problem …, dla kogo …
+  - type: textarea
+    id: how
+    attributes:
+      label: Wstępna wizja implementacji (opcjonalnie)
+      placeholder: Pole input, wzór X, wynik Y…

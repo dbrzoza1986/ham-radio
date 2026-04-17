@@ -1,0 +1,41 @@
+name: Błąd / nieaktualne dane
+description: Zgłoś błąd merytoryczny, nieaktualną częstotliwość, literówkę.
+title: "[Błąd] "
+labels: ["bug", "content"]
+body:
+  - type: dropdown
+    id: section
+    attributes:
+      label: Której sekcji dotyczy?
+      options:
+        - Kody Q
+        - Alfabet fonetyczny
+        - RST / Skróty CW
+        - Pasma (KF/VHF/UHF)
+        - Częstotliwości PL
+        - Locator
+        - DXCC / Prefiksy SP
+        - Licencje UKE
+        - Emisje
+        - Awards (SOTA/POTA/IOTA)
+        - Kalendarz zawodów
+        - QRZ / Logbooks
+        - Sprzęt
+        - BHP
+        - Słownik
+        - Kluby
+        - Historia
+        - Narzędzia (kalkulatory)
+        - Inne
+    validations: { required: true }
+  - type: textarea
+    id: description
+    attributes:
+      label: Opis błędu
+      placeholder: Jest … A powinno być …
+    validations: { required: true }
+  - type: textarea
+    id: source
+    attributes:
+      label: Źródło (opcjonalnie)
+      placeholder: Link do PZK, UKE, IARU…

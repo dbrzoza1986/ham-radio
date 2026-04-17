@@ -1,0 +1,17 @@
+{
+  "name": "Krótkofalarstwo — Kompendium",
+  "short_name": "Ham Radio PL",
+  "description": "Ściąga krótkofalarska: kody Q, pasma, częstotliwości, QRZ, LoTW, kluby i kalkulatory.",
+  "lang": "pl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any",          "type": "image/svg+xml", "purpose": "any" },
+    { "src": "favicon.svg", "sizes": "192x192 512x512", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "categories": ["education", "reference", "utilities"]
+}

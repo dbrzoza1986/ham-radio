@@ -1,0 +1,39 @@
+name: Dodaj klub krótkofalarski
+description: Zgłoś klub do listy w sekcji „Kluby".
+title: "[Klub] "
+labels: ["klub", "content"]
+body:
+  - type: input
+    id: callsign
+    attributes:
+      label: Znak klubowy
+      placeholder: SP5XXX
+    validations: { required: true }
+  - type: input
+    id: name
+    attributes:
+      label: Nazwa klubu
+      placeholder: Klub Krótkofalowców …
+    validations: { required: true }
+  - type: input
+    id: city
+    attributes:
+      label: Miasto / region
+      placeholder: Warszawa
+    validations: { required: true }
+  - type: input
+    id: ot
+    attributes:
+      label: Oddział Terenowy PZK (jeśli dotyczy)
+      placeholder: OT-25
+  - type: input
+    id: www
+    attributes:
+      label: Strona WWW
+      placeholder: https://…
+  - type: textarea
+    id: description
+    attributes:
+      label: Krótki opis (1–2 zdania)
+      placeholder: Klub aktywny w zawodach KF, prowadzi przemiennik 145.725…
+    validations: { required: true }

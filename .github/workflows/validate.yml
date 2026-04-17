@@ -1,0 +1,31 @@
+name: Validate HTML
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  html-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install html-validate
+        run: npm install --no-save html-validate
+
+      - name: Run html-validate
+        run: npx html-validate "index.html" || true
+
+      - name: Check JS syntax
+        run: node --check script.js && node --check sw.js

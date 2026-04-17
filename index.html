@@ -3,10 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kompendium krótkofalarstwa - kody Q, pasma KF/VHF/UHF, częstotliwości w Polsce, kluby krótkofalarskie.">
-    <title>Krótkofalarstwo — Kompendium | Kody Q, Pasma, Częstotliwości</title>
+    <meta name="theme-color" content="#0b1020">
+    <meta name="description" content="Kompendium krótkofalarstwa - kody Q, alfabet fonetyczny, RST, pasma KF/VHF/UHF, częstotliwości w Polsce, DXCC, QRZ.com, dzienniki łączności, kluby, kalkulatory.">
+    <meta name="keywords" content="krótkofalarstwo, ham radio, kody Q, QRZ, LoTW, eQSL, ClubLog, ADIF, SSB, CW, FT8, DX, SOTA, POTA, SP, PZK">
+    <meta name="author" content="Kompendium krótkofalarstwa">
+
+    <title>Krótkofalarstwo — Kompendium | Kody Q, Pasma, QRZ, Logbooks, Narzędzia</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Krótkofalarstwo — Kompendium wiedzy">
+    <meta property="og:description" content="Kompletna ściąga krótkofalarska: kody Q, alfabet fonetyczny, pasma, częstotliwości PL, QRZ.com, LoTW, kalkulatory (dipol, locator, azymut), kluby.">
+    <meta property="og:locale" content="pl_PL">
+    <meta property="og:site_name" content="Ham Radio Kompendium">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Krótkofalarstwo — Kompendium wiedzy">
+    <meta name="twitter:description" content="Kompletna ściąga krótkofalarska: kody Q, QRZ.com, LoTW, kalkulatory, kluby. 73 de SP!">
+
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📻%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Krótkofalarstwo — Kompendium",
+      "description": "Kompendium wiedzy o krótkofalarstwie: kody Q, pasma, częstotliwości PL, QRZ.com, dzienniki łączności, kluby.",
+      "inLanguage": "pl-PL",
+      "about": [
+        {"@type":"Thing","name":"Krótkofalarstwo"},
+        {"@type":"Thing","name":"Amateur radio"},
+        {"@type":"Thing","name":"Kody Q"},
+        {"@type":"Thing","name":"QRZ.com"}
+      ]
+    }
+    </script>
 </head>
 <body>
     <header class="site-header">
@@ -23,11 +59,24 @@
                     <span></span><span></span><span></span>
                 </button>
                 <ul id="nav-list" class="nav-list">
+                    <li><a href="#narzedzia">Narzędzia</a></li>
                     <li><a href="#kody-q">Kody Q</a></li>
+                    <li><a href="#fonetyczny">Fonetyczny</a></li>
+                    <li><a href="#rst-cw">RST & CW</a></li>
                     <li><a href="#pasma">Pasma</a></li>
                     <li><a href="#czestotliwosci-pl">Częstotliwości PL</a></li>
-                    <li><a href="#alarmowe">Alarmowe</a></li>
+                    <li><a href="#locator">Locator</a></li>
+                    <li><a href="#dxcc">DXCC / SP</a></li>
+                    <li><a href="#licencje">Licencje</a></li>
+                    <li><a href="#emisje">Emisje</a></li>
+                    <li><a href="#awards">Awards</a></li>
+                    <li><a href="#kontesty">Zawody</a></li>
+                    <li><a href="#qrz">QRZ &amp; Log</a></li>
+                    <li><a href="#sprzet">Sprzęt</a></li>
+                    <li><a href="#bhp">BHP</a></li>
+                    <li><a href="#slownik">Słownik</a></li>
                     <li><a href="#kluby">Kluby</a></li>
+                    <li><a href="#historia">Historia</a></li>
                 </ul>
             </nav>
         </div>
@@ -37,22 +86,33 @@
         <!-- HERO -->
         <section class="hero">
             <div class="container hero-inner">
-                <div class="hero-badge">73 de SP · Ham Radio</div>
+                <div class="hero-badge">73 de SP · Ham Radio Kompendium</div>
                 <h1>Krótkofalarstwo<br><span class="accent">od A do Z</span></h1>
                 <p class="lead">
-                    Kompendium wiedzy o radioamatorstwie: <strong>kody Q</strong>, zakresy pasm
-                    <strong> KF / VHF / UHF</strong>, najpopularniejsze <strong>częstotliwości w Polsce</strong>,
-                    kanały <strong>alarmowe</strong> oraz <strong>kluby krótkofalarskie</strong>.
+                    Kompendium wiedzy o radioamatorstwie: <strong>kody Q</strong>, <strong>alfabet fonetyczny</strong>,
+                    <strong>RST</strong>, zakresy pasm <strong>KF / VHF / UHF</strong>, najpopularniejsze
+                    <strong>częstotliwości w Polsce</strong>, <strong>DXCC</strong>, <strong>QRZ.com</strong>,
+                    dzienniki łączności (LoTW, eQSL, ClubLog) oraz <strong>kluby krótkofalarskie</strong>.
                 </p>
                 <div class="hero-cta">
                     <a href="#kody-q" class="btn btn-primary">Zobacz kody Q</a>
-                    <a href="#czestotliwosci-pl" class="btn btn-ghost">Częstotliwości PL</a>
+                    <a href="#narzedzia" class="btn btn-ghost">Narzędzia</a>
+                    <a href="#qrz" class="btn btn-ghost">QRZ &amp; Logbooks</a>
                 </div>
 
+                <!-- GLOBAL SEARCH -->
+                <div class="global-search-wrap">
+                    <label class="search-field global-search">
+                        <span class="sr-only">Wyszukaj w całym kompendium</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                        <input id="global-search" type="search" placeholder="Szukaj w całym kompendium: kody Q, fonetyczny, CW, sprzęt, słownik…" autocomplete="off">
+                    </label>
+                    <div id="global-search-results" class="global-search-results" hidden></div>
+                </div>
                 <div class="hero-stats" aria-label="Szybkie statystyki">
                     <div><strong>50+</strong><span>kodów Q</span></div>
+                    <div><strong>26</strong><span>liter ICAO</span></div>
                     <div><strong>9</strong><span>pasm KF</span></div>
-                    <div><strong>2m / 70cm</strong><span>VHF / UHF</span></div>
                     <div><strong>145.500</strong><span>wywołanie FM</span></div>
                 </div>
             </div>
@@ -60,6 +120,136 @@
                 <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
                     <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="currentColor"/>
                 </svg>
+            </div>
+        </section>
+
+        <!-- NARZĘDZIA -->
+        <section id="narzedzia" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Narzędzia krótkofalarskie</h2>
+                    <p class="section-sub">
+                        Kalkulatory działające w przeglądarce — nic nie jest wysyłane nigdzie dalej. Wszystko liczy się
+                        lokalnie w Twoim komputerze.
+                    </p>
+                </div>
+
+                <div class="tools-grid">
+                    <!-- KALKULATOR DIPOLA -->
+                    <article class="tool-card">
+                        <header>
+                            <h3>📐 Kalkulator długości dipola</h3>
+                            <span class="chip">λ/2</span>
+                        </header>
+                        <p class="tool-desc">
+                            Wpisz częstotliwość środkową pasma w MHz. Wzór: <code>L = 142,5 / f × k</code>,
+                            gdzie <code>k</code> to współczynnik skrócenia (≈ 0,95 dla przewodu miedzianego w powietrzu).
+                        </p>
+                        <div class="tool-row">
+                            <label>Częstotliwość (MHz)
+                                <input id="dip-freq" type="number" step="0.001" min="0.1" max="3000" value="14.1">
+                            </label>
+                            <label>Współczynnik k
+                                <input id="dip-k" type="number" step="0.01" min="0.8" max="1.0" value="0.95">
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">Całość (dipol)</span><strong id="dip-total">— m</strong></div>
+                            <div><span class="label">Jedno ramię (λ/4)</span><strong id="dip-half">— m</strong></div>
+                            <div><span class="label">λ (pełna)</span><strong id="dip-lambda">— m</strong></div>
+                        </div>
+                    </article>
+
+                    <!-- LOCATOR <-> LAT/LON -->
+                    <article class="tool-card">
+                        <header>
+                            <h3>📍 Konwerter Locator ↔ współrzędne</h3>
+                            <span class="chip">Maidenhead</span>
+                        </header>
+                        <p class="tool-desc">
+                            Konwertuje locator Maidenhead na szerokość/długość geograficzną (środek kwadratu)
+                            i odwrotnie.
+                        </p>
+                        <div class="tool-row">
+                            <label>Locator (np. JO91ss)
+                                <input id="loc-input" type="text" placeholder="JO91" autocomplete="off" maxlength="8">
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">Lat / Lon</span><strong id="loc-latlon">—</strong></div>
+                        </div>
+                        <hr class="tool-divider">
+                        <div class="tool-row">
+                            <label>Lat (°)
+                                <input id="ll-lat" type="number" step="0.0001" min="-90" max="90" placeholder="52.2297">
+                            </label>
+                            <label>Lon (°)
+                                <input id="ll-lon" type="number" step="0.0001" min="-180" max="180" placeholder="21.0122">
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">Locator (6 znaków)</span><strong id="ll-locator">—</strong></div>
+                        </div>
+                    </article>
+
+                    <!-- AZYMUT / ODLEGŁOŚĆ -->
+                    <article class="tool-card">
+                        <header>
+                            <h3>🧭 Azymut i odległość</h3>
+                            <span class="chip">QTH ↔ QTH</span>
+                        </header>
+                        <p class="tool-desc">
+                            Wzór haversine. Podaj dwa lokatory Maidenhead, otrzymasz azymut (°) i odległość (km)
+                            po wielkim okręgu (great circle).
+                        </p>
+                        <div class="tool-row">
+                            <label>Locator 1 (Ty)
+                                <input id="az-loc1" type="text" placeholder="KO02mf" autocomplete="off" maxlength="8" value="KO02mf">
+                            </label>
+                            <label>Locator 2 (DX)
+                                <input id="az-loc2" type="text" placeholder="FN30as" autocomplete="off" maxlength="8" value="FN30as">
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">Odległość</span><strong id="az-dist">— km</strong></div>
+                            <div><span class="label">Azymut</span><strong id="az-bearing">— °</strong></div>
+                            <div><span class="label">Azymut powrotny</span><strong id="az-rev">— °</strong></div>
+                        </div>
+                    </article>
+
+                    <!-- ZNAJDŹ PASMO -->
+                    <article class="tool-card">
+                        <header>
+                            <h3>🔍 Znajdź pasmo</h3>
+                            <span class="chip">freq → band</span>
+                        </header>
+                        <p class="tool-desc">
+                            Wpisz częstotliwość (MHz lub kHz). Wynik: pasmo amatorskie, rodzaj emisji zwyczajowo
+                            stosowanej w tym segmencie oraz Region IARU (zakładamy R1).
+                        </p>
+                        <div class="tool-row">
+                            <label>Częstotliwość
+                                <input id="fb-freq" type="number" step="0.001" placeholder="14.074">
+                            </label>
+                            <label>Jednostka
+                                <select id="fb-unit">
+                                    <option value="MHz" selected>MHz</option>
+                                    <option value="kHz">kHz</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">Pasmo</span><strong id="fb-band">—</strong></div>
+                            <div><span class="label">Segment / emisje</span><strong id="fb-segment">—</strong></div>
+                            <div><span class="label">Uwagi</span><strong id="fb-notes">—</strong></div>
+                        </div>
+                    </article>
+                </div>
+
+                <p class="note">
+                    💡 W sekcjach „Częstotliwości" możesz kliknąć dowolną wartość częstotliwości —
+                    zostanie skopiowana do schowka.
+                </p>
             </div>
         </section>
 
@@ -83,6 +273,15 @@
                     <p class="qcode-count"><span id="qcount">0</span> z <span id="qtotal">0</span> kodów</p>
                 </div>
 
+                <div class="chip-filters" role="tablist" aria-label="Filtr kategorii kodów Q">
+                    <button type="button" class="chip-btn active" data-qfilter="all">Wszystkie</button>
+                    <button type="button" class="chip-btn" data-qfilter="QR">QR… (warunki pracy)</button>
+                    <button type="button" class="chip-btn" data-qfilter="QS">QS… (łączność)</button>
+                    <button type="button" class="chip-btn" data-qfilter="QT">QT… (czas / miejsce)</button>
+                    <button type="button" class="chip-btn" data-qfilter="QU">QU… (wiadomości)</button>
+                    <button type="button" class="chip-btn" data-qfilter="misc">Skróty / CW / 73 88</button>
+                </div>
+
                 <div class="table-wrap">
                     <table class="data-table qtable">
                         <thead>
@@ -92,15 +291,106 @@
                                 <th scope="col">Odpowiedź / Znaczenie</th>
                             </tr>
                         </thead>
-                        <tbody id="qtable-body">
-                            <!-- wypełniane przez JS -->
-                        </tbody>
+                        <tbody id="qtable-body"></tbody>
                     </table>
                 </div>
                 <p class="note">
-                    Wskazówka: w mowie powszechnej używa się form typu „<em>QRZ?</em>" — „kto mnie woła?",
-                    „<em>73</em>" — „pozdrowienia", „<em>88</em>" — „uściski" (tradycyjnie do operatorek).
+                    Wskazówka: „<em>QRZ?</em>" — „kto mnie woła?", „<em>73</em>" — „pozdrowienia",
+                    „<em>88</em>" — „uściski" (tradycyjnie do operatorek).
                 </p>
+            </div>
+        </section>
+
+        <!-- ALFABET FONETYCZNY -->
+        <section id="fonetyczny" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Alfabet fonetyczny</h2>
+                    <p class="section-sub">
+                        Międzynarodowy alfabet fonetyczny ICAO/NATO używany do literowania znaków wywoławczych.
+                        Przykład: SP5ABC → „Sierra Papa Five Alpha Bravo Charlie".
+                    </p>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table" id="phonetic-table">
+                        <thead>
+                            <tr>
+                                <th>Litera</th>
+                                <th>ICAO / NATO</th>
+                                <th>Wymowa</th>
+                                <th>Polski (alternatywny)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="phonetic-body"></tbody>
+                    </table>
+                </div>
+                <p class="note">
+                    W Polsce powszechnie używa się wersji ICAO, choć w starych podręcznikach można spotkać formy typu
+                    „Adam, Barbara, Celina". Cyfry: 0 = Zero, 1 = Wun/One, 9 = Niner (ICAO) — by uniknąć pomyłki z „nine/nein".
+                </p>
+            </div>
+        </section>
+
+        <!-- RST + CW -->
+        <section id="rst-cw" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>System raportów RST + skróty CW</h2>
+                    <p class="section-sub">
+                        RST to trzycyfrowy raport: <strong>R</strong>eadability (czytelność) · <strong>S</strong>ignal strength (siła) ·
+                        <strong>T</strong>one (ton, tylko CW). Dla fonii używa się tylko RS (np. 59).
+                    </p>
+                </div>
+
+                <div class="rst-grid">
+                    <article class="band-card">
+                        <header><h3>R — Readability</h3><span class="chip">1–5</span></header>
+                        <ul class="plain">
+                            <li><strong>1</strong> — nieczytelny</li>
+                            <li><strong>2</strong> — ledwo czytelny, pojedyncze słowa</li>
+                            <li><strong>3</strong> — czytelny z trudnością</li>
+                            <li><strong>4</strong> — czytelny bez trudności</li>
+                            <li><strong>5</strong> — idealnie czytelny</li>
+                        </ul>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>S — Signal strength</h3><span class="chip">1–9</span></header>
+                        <ul class="plain">
+                            <li><strong>1</strong> — ledwo wykrywalny</li>
+                            <li><strong>3</strong> — słaby</li>
+                            <li><strong>5</strong> — średni</li>
+                            <li><strong>7</strong> — silny</li>
+                            <li><strong>9</strong> — bardzo silny (+dB nad S9, np. „59+20")</li>
+                        </ul>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>T — Tone (CW)</h3><span class="chip">1–9</span></header>
+                        <ul class="plain">
+                            <li><strong>1</strong> — bardzo chropowaty prąd zmienny</li>
+                            <li><strong>5</strong> — modulowany, tętnienie</li>
+                            <li><strong>7</strong> — czysty, lekko modulowany</li>
+                            <li><strong>9</strong> — idealny, czysty ton</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="propagation-note">
+                    <h4>Najczęściej używane raporty</h4>
+                    <ul>
+                        <li><strong>59</strong> — standard na SSB („pięć dziewięć").</li>
+                        <li><strong>599</strong> — standard na CW.</li>
+                        <li><strong>5NN</strong> — na CW w zawodach — „NN" = „99" (łatwiej nadać kluczem).</li>
+                        <li><strong>59+20 dB</strong> — bardzo silny sygnał, ponad S9 o 20 dB.</li>
+                    </ul>
+                </div>
+
+                <h3 class="sub-h">Skróty CW / telegraficzne</h3>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>Skrót</th><th>Znaczenie</th></tr></thead>
+                        <tbody id="cw-body"></tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -117,21 +407,16 @@
 
                 <div class="bands-grid">
                     <article class="band-card band-hf">
-                        <header>
-                            <h3>KF — Fale krótkie (HF)</h3>
-                            <span class="chip">3 – 30 MHz</span>
-                        </header>
+                        <header><h3>KF — Fale krótkie (HF)</h3><span class="chip">3 – 30 MHz</span></header>
                         <p>Łączności dalekodystansowe (DX) dzięki odbiciu fal od jonosfery. Pasmo klasyczne dla radioamatorów.</p>
                         <table class="data-table compact">
-                            <thead>
-                                <tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr>
-                            </thead>
+                            <thead><tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr></thead>
                             <tbody>
                                 <tr><td>160 m</td><td>1.810 – 2.000 MHz</td><td>„Top band", nocne DX</td></tr>
                                 <tr><td>80 m</td><td>3.500 – 3.800 MHz</td><td>Łączności regionalne, SN0HQ</td></tr>
                                 <tr><td>60 m</td><td>5.351,5 – 5.366,5 MHz</td><td>Pasmo ograniczone</td></tr>
                                 <tr><td>40 m</td><td>7.000 – 7.200 MHz</td><td>DX dzień/noc</td></tr>
-                                <tr><td>30 m</td><td>10.100 – 10.150 MHz</td><td>Tylko CW / cyfrowe</td></tr>
+                                <tr><td>30 m</td><td>10.100 – 10.150 MHz</td><td>Tylko CW / cyfrowe · WARC</td></tr>
                                 <tr><td>20 m</td><td>14.000 – 14.350 MHz</td><td>Król pasm DX-owych</td></tr>
                                 <tr><td>17 m</td><td>18.068 – 18.168 MHz</td><td>WARC, bez zawodów</td></tr>
                                 <tr><td>15 m</td><td>21.000 – 21.450 MHz</td><td>Propagacja w słońcu</td></tr>
@@ -142,15 +427,10 @@
                     </article>
 
                     <article class="band-card band-vhf">
-                        <header>
-                            <h3>VHF — Fale ultrakrótkie</h3>
-                            <span class="chip">30 – 300 MHz</span>
-                        </header>
+                        <header><h3>VHF — Fale ultrakrótkie</h3><span class="chip">30 – 300 MHz</span></header>
                         <p>Łączności lokalne i regionalne, przemienniki FM, SSB, satelity, meteor scatter, aurora, tropo.</p>
                         <table class="data-table compact">
-                            <thead>
-                                <tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr>
-                            </thead>
+                            <thead><tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr></thead>
                             <tbody>
                                 <tr><td>6 m</td><td>50.000 – 52.000 MHz</td><td>„Magic band", Es</td></tr>
                                 <tr><td>4 m</td><td>70.000 – 70.300 MHz</td><td>W PL pozwolenie indywidualne</td></tr>
@@ -160,15 +440,10 @@
                     </article>
 
                     <article class="band-card band-uhf">
-                        <header>
-                            <h3>UHF — Fale decymetrowe</h3>
-                            <span class="chip">300 – 3000 MHz</span>
-                        </header>
+                        <header><h3>UHF — Fale decymetrowe</h3><span class="chip">300 – 3000 MHz</span></header>
                         <p>Przemienniki, DMR/D-STAR/C4FM, komunikacja miejska, łączności satelitarne, ATV.</p>
                         <table class="data-table compact">
-                            <thead>
-                                <tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr>
-                            </thead>
+                            <thead><tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr></thead>
                             <tbody>
                                 <tr><td>70 cm</td><td>430.000 – 440.000 MHz</td><td>FM, DMR, D-STAR</td></tr>
                                 <tr><td>23 cm</td><td>1240 – 1300 MHz</td><td>ATV, satelity</td></tr>
@@ -179,12 +454,51 @@
                 </div>
 
                 <div class="propagation-note">
+                    <h4>WARC vs pasma contestowe</h4>
+                    <p>
+                        Pasma <strong>WARC</strong> (30, 17, 12 m) zostały przydzielone krótkofalowcom na Światowej Konferencji
+                        Radiokomunikacyjnej 1979. Obowiązuje tam <strong>dżentelmeńska umowa</strong>: nie organizuje się na nich
+                        zawodów — dzięki temu są oazą spokoju dla codziennej pracy DX i QRP.
+                    </p>
+                </div>
+
+                <div class="propagation-note">
                     <h4>Szybka ściąga propagacyjna</h4>
                     <ul>
                         <li><strong>KF</strong> — odbicie od jonosfery, zasięg tysięcy km (DX).</li>
                         <li><strong>VHF</strong> — fala przyziemna + tropo, zwykle zasięg optyczny 50–300 km.</li>
                         <li><strong>UHF</strong> — niemal wyłącznie LOS (line of sight), idealne dla miast i przemienników.</li>
                     </ul>
+                </div>
+
+                <!-- WIDGET PROPAGACJI (N0NBH) -->
+                <h3 class="sub-h">Aktualna propagacja (dane na żywo)</h3>
+                <div class="live-grid">
+                    <div class="live-card">
+                        <iframe
+                            src="https://www.hamqsl.com/solarpic.php"
+                            title="Widget propagacji HF N0NBH"
+                            loading="lazy"
+                            referrerpolicy="no-referrer"
+                            style="width:100%;min-height:320px;border:0;background:#0b1020;color-scheme:light"></iframe>
+                        <p class="small muted">
+                            Źródło: <a href="https://www.hamqsl.com/solar.html" target="_blank" rel="noopener">hamqsl.com</a> (N0NBH).
+                            Jeśli widget się nie załaduje (adblock/CSP), kliknij link, by otworzyć na stronie źródłowej.
+                        </p>
+                    </div>
+                    <div class="live-card">
+                        <h4>🔗 Przydatne portale „live"</h4>
+                        <ul class="plain">
+                            <li>🌞 <a href="https://www.hamqsl.com/solar.html" target="_blank" rel="noopener">hamqsl.com — SFI / K / A / aurora</a></li>
+                            <li>📡 <a href="https://dxheat.com" target="_blank" rel="noopener">dxheat.com — DX Cluster</a></li>
+                            <li>📡 <a href="http://www.dxsummit.fi" target="_blank" rel="noopener">dxsummit.fi — klasyczny kluster</a></li>
+                            <li>🗺️ <a href="https://pskreporter.info" target="_blank" rel="noopener">pskreporter.info — mapa FT8/PSK</a></li>
+                            <li>🌌 <a href="https://wsprnet.org" target="_blank" rel="noopener">wsprnet.org — WSPR</a></li>
+                            <li>🧭 <a href="https://reversebeacon.net" target="_blank" rel="noopener">reversebeacon.net — RBN</a></li>
+                            <li>🛰️ <a href="https://www.swpc.noaa.gov/products/aurora-30-minute-forecast" target="_blank" rel="noopener">NOAA SWPC — aurora oval</a></li>
+                            <li>📊 <a href="https://www.solarham.com" target="_blank" rel="noopener">solarham.com — solar data</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -218,7 +532,7 @@
                     <article class="freq-card alert" id="alarmowe">
                         <h3>🚨 Częstotliwości alarmowe / ratunkowe</h3>
                         <ul class="freq-list">
-                            <li><span class="freq">3.760 MHz</span><span class="desc">IARU R1 Emergency Centre of Activity 80 m</span></li>
+                            <li><span class="freq">3.760 MHz</span><span class="desc">IARU R1 Emergency CoA 80 m</span></li>
                             <li><span class="freq">7.110 MHz</span><span class="desc">IARU R1 Emergency CoA 40 m</span></li>
                             <li><span class="freq">14.300 MHz</span><span class="desc">IARU R1 Emergency CoA 20 m</span></li>
                             <li><span class="freq">18.160 MHz</span><span class="desc">IARU R1 Emergency CoA 17 m</span></li>
@@ -309,6 +623,634 @@
             </div>
         </section>
 
+        <!-- LOCATOR -->
+        <section id="locator" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Locator Maidenhead (QRA Locator)</h2>
+                    <p class="section-sub">
+                        System współrzędnych geograficznych używany przez krótkofalowców — szczególnie na VHF/UHF,
+                        satelitach, SOTA, meteor scatter. Kompaktowo zapisuje lokalizację w 6 znakach.
+                    </p>
+                </div>
+
+                <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>Budowa lokatora</h3><span class="chip">AA00aa</span></header>
+                        <ul class="plain">
+                            <li><strong>Pole (field)</strong> — 2 litery A–R, siatka 20°×10° (np. <code>JO</code>).</li>
+                            <li><strong>Kwadrat (square)</strong> — 2 cyfry 0–9, siatka 2°×1° (np. <code>91</code>).</li>
+                            <li><strong>Podkwadrat (subsquare)</strong> — 2 litery a–x, siatka 5'×2,5' (np. <code>ss</code>).</li>
+                        </ul>
+                        <p class="small muted">Łącznie: <code>JO91ss</code> to ~ 9 km × 4,6 km.</p>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Lokatory polskich miast</h3><span class="chip">PL</span></header>
+                        <table class="data-table compact">
+                            <thead><tr><th>Miasto</th><th>Locator</th></tr></thead>
+                            <tbody>
+                                <tr><td>Warszawa</td><td><code>KO02mf</code></td></tr>
+                                <tr><td>Kraków</td><td><code>KN09</code></td></tr>
+                                <tr><td>Gdańsk</td><td><code>JO94</code></td></tr>
+                                <tr><td>Wrocław</td><td><code>JO81</code></td></tr>
+                                <tr><td>Poznań</td><td><code>JO82</code></td></tr>
+                                <tr><td>Łódź</td><td><code>JO91</code></td></tr>
+                                <tr><td>Szczecin</td><td><code>JO73</code></td></tr>
+                                <tr><td>Katowice</td><td><code>JO90</code></td></tr>
+                                <tr><td>Białystok</td><td><code>KO13</code></td></tr>
+                                <tr><td>Lublin</td><td><code>KO11</code></td></tr>
+                                <tr><td>Rzeszów</td><td><code>KN09</code></td></tr>
+                            </tbody>
+                        </table>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Po co locator?</h3><span class="chip">VHF+</span></header>
+                        <ul class="plain">
+                            <li>W zawodach UKF — mnożniki i punktacja zależne od lokatora.</li>
+                            <li>Programy loggerskie automatycznie liczą odległość w km.</li>
+                            <li>FT8 / WSJT-X wymienia locator w ramach wywołania DX.</li>
+                            <li>Satelity — szybkie wskazanie QTH operatora.</li>
+                            <li>SOTA/POTA — identyfikacja stanowiska.</li>
+                        </ul>
+                    </article>
+                </div>
+                <p class="note">
+                    🧮 W sesji 2 planowany jest interaktywny konwerter locator ↔ lat/lon oraz kalkulator azymutu
+                    i odległości między dwoma lokatorami.
+                </p>
+            </div>
+        </section>
+
+        <!-- DXCC + OKRĘGI SP -->
+        <section id="dxcc" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Prefiksy DXCC i okręgi wywoławcze SP</h2>
+                    <p class="section-sub">
+                        Każdy kraj ma przypisane prefiksy — początek znaku wywoławczego (np. <strong>SP</strong> = Polska).
+                        DXCC to lista ok. 340 „krajów" dla dyplomów DX.
+                    </p>
+                </div>
+
+                <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>Polskie prefiksy</h3><span class="chip">SP / SQ / SO / 3Z / HF</span></header>
+                        <ul class="plain">
+                            <li><strong>SP</strong> — klasyczne, ogólne (np. SP5ABC).</li>
+                            <li><strong>SQ</strong> — indywidualne, od lat 2000.</li>
+                            <li><strong>SO</strong> — specjalne (często klubowe/kontest).</li>
+                            <li><strong>3Z</strong> — okazjonalne, eventowe.</li>
+                            <li><strong>HF</strong> — okazjonalne, rocznicowe.</li>
+                            <li><strong>SN</strong> — okolicznościowe, np. SN0HQ (IARU HF).</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Okręgi wywoławcze SP1–SP9</h3><span class="chip">PL</span></header>
+                        <table class="data-table compact">
+                            <thead><tr><th>Okręg</th><th>Województwa</th></tr></thead>
+                            <tbody>
+                                <tr><td>SP1</td><td>Zachodniopomorskie</td></tr>
+                                <tr><td>SP2</td><td>Pomorskie, kujawsko-pomorskie</td></tr>
+                                <tr><td>SP3</td><td>Wielkopolskie, lubuskie</td></tr>
+                                <tr><td>SP4</td><td>Podlaskie, warmińsko-mazurskie</td></tr>
+                                <tr><td>SP5</td><td>Mazowieckie</td></tr>
+                                <tr><td>SP6</td><td>Dolnośląskie, opolskie</td></tr>
+                                <tr><td>SP7</td><td>Łódzkie, świętokrzyskie</td></tr>
+                                <tr><td>SP8</td><td>Lubelskie, podkarpackie</td></tr>
+                                <tr><td>SP9</td><td>Śląskie, małopolskie</td></tr>
+                            </tbody>
+                        </table>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Popularne prefiksy DX (EU)</h3><span class="chip">Europa</span></header>
+                        <table class="data-table compact">
+                            <thead><tr><th>Kraj</th><th>Prefiks</th></tr></thead>
+                            <tbody>
+                                <tr><td>Niemcy</td><td>DL, DK, DJ, DB, DG, DH</td></tr>
+                                <tr><td>Czechy</td><td>OK, OL</td></tr>
+                                <tr><td>Słowacja</td><td>OM</td></tr>
+                                <tr><td>Węgry</td><td>HA, HG</td></tr>
+                                <tr><td>Ukraina</td><td>UR – UZ, EM – EO</td></tr>
+                                <tr><td>Białoruś</td><td>EU, EV, EW</td></tr>
+                                <tr><td>Litwa</td><td>LY</td></tr>
+                                <tr><td>Łotwa</td><td>YL</td></tr>
+                                <tr><td>Estonia</td><td>ES</td></tr>
+                                <tr><td>Rosja</td><td>R, RA, UA</td></tr>
+                                <tr><td>Finlandia</td><td>OH, OF</td></tr>
+                                <tr><td>Szwecja</td><td>SM, SA, SK</td></tr>
+                                <tr><td>Dania</td><td>OZ, 5P, 5Q</td></tr>
+                                <tr><td>Wlk. Brytania</td><td>G, M, 2E</td></tr>
+                                <tr><td>Francja</td><td>F, TM</td></tr>
+                                <tr><td>Włochy</td><td>I, IK, IZ</td></tr>
+                                <tr><td>Hiszpania</td><td>EA, EB, EC</td></tr>
+                            </tbody>
+                        </table>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Popularne DX (świat)</h3><span class="chip">DXCC</span></header>
+                        <table class="data-table compact">
+                            <thead><tr><th>Kraj</th><th>Prefiks</th></tr></thead>
+                            <tbody>
+                                <tr><td>USA</td><td>W, K, N, AA–AK</td></tr>
+                                <tr><td>Kanada</td><td>VE, VA, VO, VY</td></tr>
+                                <tr><td>Japonia</td><td>JA, JE, JF, JH, 7J</td></tr>
+                                <tr><td>Chiny</td><td>BY, BA, B1–B9</td></tr>
+                                <tr><td>Australia</td><td>VK</td></tr>
+                                <tr><td>Nowa Zelandia</td><td>ZL</td></tr>
+                                <tr><td>Brazylia</td><td>PY, PP, PT</td></tr>
+                                <tr><td>Argentyna</td><td>LU</td></tr>
+                                <tr><td>RPA</td><td>ZS</td></tr>
+                                <tr><td>Izrael</td><td>4X, 4Z</td></tr>
+                                <tr><td>Indie</td><td>VU</td></tr>
+                                <tr><td>Antarktyda</td><td>CE9, KC4, VP8</td></tr>
+                            </tbody>
+                        </table>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- LICENCJE -->
+        <section id="licencje" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Licencje (pozwolenia UKE)</h2>
+                    <p class="section-sub">
+                        W Polsce egzamin na krótkofalowca zdaje się w <strong>Urzędzie Komunikacji Elektronicznej</strong>.
+                        Obowiązują 3 kategorie + licencje klubowe.
+                    </p>
+                </div>
+
+                <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>Kategoria 1</h3><span class="chip">Najwyższa</span></header>
+                        <ul class="plain">
+                            <li>Pełny dostęp do wszystkich pasm amatorskich.</li>
+                            <li>Maksymalna moc zależna od pasma (do 1000 W / 750 W na KF).</li>
+                            <li>Znaki: SP, SQ, SO, 3Z.</li>
+                            <li>Egzamin — poszerzony zakres regulacji, techniki, BHP.</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Kategoria 2</h3><span class="chip">Pośrednia</span></header>
+                        <ul class="plain">
+                            <li>Dostęp do pasm KF/VHF/UHF z ograniczeniami mocy.</li>
+                            <li>Maksymalna moc zwykle <strong>100 W</strong>.</li>
+                            <li>Egzamin podstawowy + techniczny.</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Kategoria 3</h3><span class="chip">Startowa</span></header>
+                        <ul class="plain">
+                            <li>Uproszczona licencja dla początkujących (młodzież / nowicjusze).</li>
+                            <li>Ograniczenia pasm i mocy (zwykle ≤ 25 W).</li>
+                            <li>Dobra droga „na start" — zwłaszcza dla dzieci i młodzieży.</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Pozwolenie klubowe</h3><span class="chip">Klub</span></header>
+                        <ul class="plain">
+                            <li>Dla zorganizowanej grupy (klub, szkoła, harcerze).</li>
+                            <li>Znak wywoławczy typu <code>SP5K..</code> / <code>SP5Y..</code>.</li>
+                            <li>Może być używany przez wszystkich członków klubu z odpowiednimi uprawnieniami.</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="info-callout">
+                    <h3>Jak zdobyć pozwolenie — krok po kroku</h3>
+                    <ol>
+                        <li>Nauka — podręczniki PZK, kursy klubowe, materiały online.</li>
+                        <li>Zgłoszenie do <strong>UKE</strong> — wniosek o dopuszczenie do egzaminu.</li>
+                        <li>Egzamin (test + część ustna) — regulacje, technika, elektronika, BHP.</li>
+                        <li>Świadectwo operatora urządzeń radiowych w służbie amatorskiej.</li>
+                        <li>Wniosek o pozwolenie radiowe — nadanie znaku wywoławczego.</li>
+                        <li>Pierwsze QSO! <strong>73!</strong></li>
+                    </ol>
+                    <p class="small muted">
+                        Szczegóły i aktualne wnioski: <a href="https://www.uke.gov.pl" target="_blank" rel="noopener">uke.gov.pl</a>
+                        oraz <a href="https://pzk.org.pl" target="_blank" rel="noopener">pzk.org.pl</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EMISJE -->
+        <section id="emisje" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Emisje (rodzaje pracy)</h2>
+                    <p class="section-sub">
+                        Sposoby modulacji i transmisji używane w łączności amatorskiej — od klasycznego CW po nowoczesne
+                        mody cyfrowe.
+                    </p>
+                </div>
+
+                <div class="clubs-grid">
+                    <article class="club-card"><div class="club-call">CW</div><h3>Morse (telegrafia)</h3><p>Najstarsza i najczulsza emisja. Wąskie pasmo (~50 Hz), świetnie „przebija się" w trudnych warunkach. Wciąż żywa, szczególnie w DX i QRP.</p></article>
+                    <article class="club-card"><div class="club-call">SSB</div><h3>Single Sideband</h3><p>Modulacja z jedną wstęgą boczną. Na KF poniżej 10 MHz — LSB, powyżej — USB. Standard łączności głosowej DX.</p></article>
+                    <article class="club-card"><div class="club-call">FM</div><h3>Modulacja częstotliwości</h3><p>Stosowana głównie na VHF/UHF — przemienniki, simpleks. Dobra jakość dźwięku, duża szerokość (~12 kHz).</p></article>
+                    <article class="club-card"><div class="club-call">AM</div><h3>Modulacja amplitudy</h3><p>Historyczna, dziś głównie w CB i lotnictwie. W amatorskiej — rzadko, kluby nostalgików.</p></article>
+                    <article class="club-card"><div class="club-call">RTTY</div><h3>Radioteletype</h3><p>Tekst nadawany z klawiatury, 45 Bd, FSK 170 Hz shift. Nadal popularne w zawodach.</p></article>
+                    <article class="club-card"><div class="club-call">PSK31</div><h3>Phase Shift Keying</h3><p>Cyfrowa rozmowa na klawiaturze, bardzo wąskie pasmo (~31 Hz). Tradycyjna emisja cyfrowa DX.</p></article>
+                    <article class="club-card"><div class="club-call">FT8</div><h3>WSJT-X — FT8 / FT4</h3><p>Najpopularniejsze mody cyfrowe od 2017 — strukturalne QSO co 15 s (FT8) / 7,5 s (FT4), super-czułe (−24 dB SNR).</p></article>
+                    <article class="club-card"><div class="club-call">JS8</div><h3>JS8Call</h3><p>Podobne do FT8, ale pozwala na swobodny tekst (jak „chat" cyfrowy) z keep-alive.</p></article>
+                    <article class="club-card"><div class="club-call">VARA</div><h3>VARA HF / FM</h3><p>Cyfrowa emisja winlink, e-mail przez radio, wysoka przepustowość, dynamiczna adaptacja.</p></article>
+                    <article class="club-card"><div class="club-call">DMR</div><h3>Digital Mobile Radio</h3><p>Cyfrowa UHF — sieci BrandMeister, TGIF, DMRplus. TG 260 = Polska.</p></article>
+                    <article class="club-card"><div class="club-call">D-STAR</div><h3>Digital Smart Technologies</h3><p>System ICOM — głos + dane, reflektory, gateway do Internetu.</p></article>
+                    <article class="club-card"><div class="club-call">C4FM</div><h3>Yaesu System Fusion</h3><p>Yaesu C4FM + analog FM, sieć WiRES-X.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <!-- AWARDS (SOTA/POTA/IOTA) -->
+        <section id="awards" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Programy dyplomowe i aktywności terenowe</h2>
+                    <p class="section-sub">
+                        „Awards" i aktywności terenowe to dziś największe motory rozwoju radioamatorstwa — łączą hobby
+                        z turystyką, górami i naturą.
+                    </p>
+                </div>
+
+                <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>🏔️ SOTA — Summits On The Air</h3><span class="chip">Góry</span></header>
+                        <p>Łączności ze szczytów. Punkty za wysokość. Polska ma ponad 500 referencji w regionach SP/BZ, SP/SK, SP/SS.</p>
+                        <p><a href="https://sota.org.uk" target="_blank" rel="noopener">sota.org.uk</a> · <a href="https://sotawatch.sota.org.uk" target="_blank" rel="noopener">sotawatch</a></p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🌳 POTA — Parks On The Air</h3><span class="chip">Parki</span></header>
+                        <p>Łączności z parków narodowych i krajobrazowych. Polskie referencje SP-XXXX.</p>
+                        <p><a href="https://pota.app" target="_blank" rel="noopener">pota.app</a></p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🏝️ IOTA — Islands On The Air</h3><span class="chip">Wyspy</span></header>
+                        <p>Wyprawy na wyspy. Polskie: EU-132 (Wolin, Uznam). Dyplom RSGB.</p>
+                        <p><a href="https://www.iota-world.org" target="_blank" rel="noopener">iota-world.org</a></p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🌿 WWFF / WFF</h3><span class="chip">Flora &amp; Fauna</span></header>
+                        <p>Łączności z obszarów chronionych. Polska sekcja: SPFF.</p>
+                        <p><a href="https://wwff.co" target="_blank" rel="noopener">wwff.co</a></p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🏰 WCA — World Castles Award</h3><span class="chip">Zamki</span></header>
+                        <p>Łączności z zamków i twierdz. Polska ma ich kilkaset — świetna wymówka do wycieczki.</p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🌉 WWB — Bridges on the Air</h3><span class="chip">Mosty</span></header>
+                        <p>Łączności z mostów. Rozwijający się program aktywności terenowej.</p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🏆 Dyplomy PZK</h3><span class="chip">PL</span></header>
+                        <ul class="plain">
+                            <li><strong>SPDXC</strong> — 100 krajów QSO z Polski.</li>
+                            <li><strong>SP-PA</strong> — województwa.</li>
+                            <li><strong>Dyplom Mazowiecki</strong>, <strong>Ślązak</strong>, <strong>Bałtyk</strong> — regionalne.</li>
+                        </ul>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🌍 DXCC (ARRL)</h3><span class="chip">Klasyka</span></header>
+                        <p>Najbardziej prestiżowy program DX — potwierdzenie łączności z ok. 340 „krajami". Honor Roll: ≥9 brakujących do kompletu.</p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>📻 WAS / WAZ / WAC</h3><span class="chip">Świat</span></header>
+                        <ul class="plain">
+                            <li><strong>WAS</strong> — wszystkie stany USA (50).</li>
+                            <li><strong>WAZ</strong> — wszystkie 40 stref CQ.</li>
+                            <li><strong>WAC</strong> — wszystkie 6 kontynentów.</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- KONTESTY -->
+        <section id="kontesty" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Kalendarz zawodów (contesty)</h2>
+                    <p class="section-sub">
+                        Najważniejsze zawody KF/UKF w roku. Zawody to świetny sposób na szybkie zdobycie łączności
+                        do dyplomów oraz doskonalenie warsztatu operatorskiego.
+                    </p>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Termin</th><th>Zawody</th><th>Pasma / Emisje</th><th>Uwagi</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Ostatni weekend X</td><td><strong>CQ WW DX CW</strong></td><td>160–10 m · CW</td><td>Największe zawody CW na świecie (ARRL).</td></tr>
+                            <tr><td>Ostatni weekend IX</td><td><strong>CQ WW DX SSB</strong></td><td>160–10 m · SSB</td><td>Pendant SSB — rekordy aktywności.</td></tr>
+                            <tr><td>Koniec V</td><td><strong>CQ WPX CW</strong></td><td>160–10 m · CW</td><td>Każdy prefiks = mnożnik.</td></tr>
+                            <tr><td>Koniec III</td><td><strong>CQ WPX SSB</strong></td><td>160–10 m · SSB</td><td>SSB pendant.</td></tr>
+                            <tr><td>Luty / Marzec</td><td><strong>ARRL DX (CW/SSB)</strong></td><td>160–10 m</td><td>W ↔ DX.</td></tr>
+                            <tr><td>2. weekend VII</td><td><strong>IARU HF Championship</strong></td><td>160–10 m · CW+SSB</td><td>Polski zespół startuje jako SN0HQ.</td></tr>
+                            <tr><td>2. weekend VIII</td><td><strong>WAE DX CW</strong></td><td>80–10 m · CW</td><td>DARC, EU ↔ świat + QTC.</td></tr>
+                            <tr><td>1. weekend IV</td><td><strong>SP DX Contest</strong></td><td>160–10 m · CW+SSB</td><td>Polskie zawody PZK — SP ↔ świat.</td></tr>
+                            <tr><td>Cały rok</td><td><strong>SPAC (SP Activity Contest)</strong></td><td>VHF/UHF</td><td>Wtorki — poszczególne pasma.</td></tr>
+                            <tr><td>Marzec – Listopad</td><td><strong>UKF Maraton</strong></td><td>VHF/UHF</td><td>Polski klasyk UKF.</td></tr>
+                            <tr><td>Pierwszy weekend X</td><td><strong>CQ WW RTTY</strong></td><td>80–10 m · RTTY</td><td>Popularne zawody cyfrowe.</td></tr>
+                            <tr><td>Grudzień</td><td><strong>ARRL 10-Meter</strong></td><td>10 m · CW+SSB</td><td>Tylko 10 m, świetne gdy słońce aktywne.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="note">
+                    Kalendarz: <a href="https://www.contestcalendar.com" target="_blank" rel="noopener">contestcalendar.com</a>,
+                    PZK HF: <a href="https://pzk.org.pl" target="_blank" rel="noopener">pzk.org.pl</a>.
+                </p>
+            </div>
+        </section>
+
+        <!-- QRZ & LOGBOOKS -->
+        <section id="qrz" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>QRZ.com i dzienniki łączności (logbooks)</h2>
+                    <p class="section-sub">
+                        Jak prowadzić dziennik, potwierdzać łączności i być widocznym w świecie — od QRZ.com, przez
+                        LoTW, eQSL, ClubLog, po formaty ADIF i Cabrillo.
+                    </p>
+                </div>
+
+                <!-- QRZ.com -->
+                <article class="band-card" style="margin-bottom:1.4rem">
+                    <header><h3>🌐 QRZ.com — co to jest?</h3><span class="chip">qrz.com</span></header>
+                    <p>
+                        Największa na świecie <strong>baza znaków wywoławczych</strong> i portal społecznościowy krótkofalowców.
+                        Po wpisaniu dowolnego znaku (np. <code>SP5ABC</code>) zobaczysz stronę („biografię") operatora:
+                        imię, QTH, lokator, sprzęt, zdjęcia, email i preferowany sposób wymiany QSL.
+                    </p>
+                    <ul class="plain">
+                        <li><strong>Callsign Lookup</strong> — szukaj po znaku, biografii, lokatorze.</li>
+                        <li><strong>Logbook</strong> — online dziennik łączności (upload ADIF lub wpis ręczny).</li>
+                        <li><strong>DX Cluster</strong> — spoty DX w czasie rzeczywistym.</li>
+                        <li><strong>Forums</strong> — dyskusje o sprzęcie, antenach, propagacji.</li>
+                        <li><strong>Podcasty, szkolenia</strong> — QRZ Now, nowości.</li>
+                    </ul>
+                </article>
+
+                <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>📝 Zakładanie konta na QRZ</h3><span class="chip">Rejestracja</span></header>
+                        <ol class="plain" style="padding-left:1.1rem">
+                            <li>Wejdź na <a href="https://www.qrz.com" target="_blank" rel="noopener">qrz.com</a> → <em>Register</em>.</li>
+                            <li>Wpisz swój znak wywoławczy + email → potwierdź mailowo.</li>
+                            <li>Uzupełnij biografię: imię, QTH, lokator, sprzęt, zdjęcie.</li>
+                            <li>W zakładce <em>Logbook</em> zacznij wpisywać łączności lub zaimportuj ADIF.</li>
+                        </ol>
+                        <p class="small muted">
+                            Konto podstawowe jest darmowe. Płatne (XML Subscription / Platinum) odblokowuje API XML,
+                            brak reklam, rozbudowane statystyki.
+                        </p>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>🎨 Dobra biografia QRZ</h3><span class="chip">Personal branding</span></header>
+                        <ul class="plain">
+                            <li>Zdjęcie operatora i/lub QTH.</li>
+                            <li>Sprzęt: TRX, wzmacniacz, anteny (np. <em>FT-891 + PA 500 W, G5RV + 2-el Yagi 20 m</em>).</li>
+                            <li>Lokator (Maidenhead) + GPS.</li>
+                            <li>Preferencje QSL: LoTW ✅ / eQSL ✅ / Bureau ✅ / Direct + SAE.</li>
+                            <li>Link do loga ClubLog / LoTW.</li>
+                            <li>Kilka zdań o sobie (języki!).</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>📘 QRZ Logbook</h3><span class="chip">Online log</span></header>
+                        <ul class="plain">
+                            <li>Wpis ręczny lub import <strong>ADIF</strong>.</li>
+                            <li>Automatyczne QSL-owanie wzajemnych potwierdzeń.</li>
+                            <li>Statystyki DXCC, pasm, emisji, map.</li>
+                            <li>Darmowy plan — pełny logbook (ograniczona integracja API).</li>
+                            <li>Integracja z loggerami: Log4OM, N1MM+, DXLab, HAMRS, WSJT-X (via ADIF).</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>🔌 QRZ XML API</h3><span class="chip">Platinum</span></header>
+                        <p>
+                            Wymaga subskrypcji <strong>XML Logbook Data</strong>. Udostępnia endpoint do pobierania danych
+                            o dowolnym znaku (imię, adres, QTH, locator). Większość loggerów potrafi korzystać z XML,
+                            by automatycznie wypełniać pola QSO.
+                        </p>
+                    </article>
+                </div>
+
+                <!-- WORKFLOW -->
+                <div class="info-callout" style="margin-top:2rem">
+                    <h3>Workflow: od QSO do potwierdzenia</h3>
+                    <ol>
+                        <li><strong>Radio</strong> — łączność (QSO).</li>
+                        <li><strong>Logger</strong> — wpis czasu, pasma, emisji, raportów, lokatora (automatycznie przez CAT/CI-V).</li>
+                        <li><strong>Export ADIF</strong> (po sesji lub na żywo).</li>
+                        <li><strong>Upload</strong>: LoTW + eQSL + QRZ Logbook + ClubLog (równolegle).</li>
+                        <li><strong>Match</strong> — gdy druga strona też uploaduje, QSO jest potwierdzone w każdym z systemów.</li>
+                        <li><strong>Dyplomy</strong> — DXCC (LoTW), WAS, WAZ, SPDXC, SOTA itd.</li>
+                    </ol>
+                </div>
+
+                <!-- LOGGERY TABELA -->
+                <h3 class="sub-h">Porównanie popularnych loggerów</h3>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Logger</th>
+                                <th>System</th>
+                                <th>LoTW</th>
+                                <th>eQSL</th>
+                                <th>QRZ</th>
+                                <th>ClubLog</th>
+                                <th>CAT</th>
+                                <th>Typ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loggers-body"></tbody>
+                    </table>
+                </div>
+
+                <!-- LOTW / eQSL / CLUBLOG -->
+                <div class="bands-grid" style="margin-top:2rem">
+                    <article class="band-card">
+                        <header><h3>🔐 LoTW (Logbook of The World)</h3><span class="chip">ARRL</span></header>
+                        <p>Oficjalny system potwierdzeń ARRL. Łączności potwierdzone w LoTW liczą się do <strong>DXCC</strong>, WAS, WAC, WAZ.</p>
+                        <ol class="plain" style="padding-left:1.1rem">
+                            <li>Załóż konto na <a href="https://lotw.arrl.org" target="_blank" rel="noopener">lotw.arrl.org</a>.</li>
+                            <li>ARRL wyśle Ci pocztą kartkę z kodem (weryfikacja tożsamości — kilka tygodni).</li>
+                            <li>Instalujesz aplikację <strong>TQSL</strong> — generuje certyfikat X.509 dla Twojego znaku.</li>
+                            <li>Logger podpisuje ADIF certyfikatem i wysyła do LoTW.</li>
+                        </ol>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🌐 eQSL.cc</h3><span class="chip">Online QSL</span></header>
+                        <p>Elektroniczne karty QSL. Szybciej i taniej niż papier. Status <strong>Authenticity Guaranteed (AG)</strong> podnosi wiarygodność. Dyplomy eQSL: eDX100, eWAS, eWAZ.</p>
+                        <p><a href="https://www.eqsl.cc" target="_blank" rel="noopener">eqsl.cc</a></p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>📊 ClubLog</h3><span class="chip">DX ligue</span></header>
+                        <p>Narzędzie do publikowania logów online — kluczowe przy DX-peditions (log „live"), OQRS (zamawianie QSL), DXCC League, matchmaker.</p>
+                        <p><a href="https://clublog.org" target="_blank" rel="noopener">clublog.org</a></p>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>📮 QSL — karta papierowa</h3><span class="chip">Bureau / Direct</span></header>
+                        <ul class="plain">
+                            <li><strong>Bureau</strong> PZK — tanio, wolno (kilka miesięcy / lat).</li>
+                            <li><strong>Direct</strong> — pocztą, z SAE + IRC / USD.</li>
+                            <li><strong>OQRS</strong> — zamawianie online przez ClubLog.</li>
+                            <li><strong>Manager</strong> — pośrednik QSL (np. „via OE1ABC").</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <!-- ADIF & CABRILLO -->
+                <h3 class="sub-h">Formaty plików</h3>
+                <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>ADIF — Amateur Data Interchange Format</h3><span class="chip">.adi / .adif</span></header>
+                        <p>Standard wymiany logów między programami. Pola w nawiasach <code>&lt;NAZWA:LEN&gt;wartość</code>.</p>
+<pre class="code-block"><code>&lt;CALL:6&gt;SP5ABC &lt;QSO_DATE:8&gt;20260417
+&lt;TIME_ON:4&gt;1234 &lt;BAND:3&gt;20M &lt;MODE:3&gt;SSB
+&lt;RST_SENT:2&gt;59 &lt;RST_RCVD:2&gt;59 &lt;EOR&gt;</code></pre>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>Cabrillo — format zawodów</h3><span class="chip">.log / .cbr</span></header>
+                        <p>Format raportowania wyników zawodów (CQ, ARRL, WWRTTY, SPDX). Przykład linii QSO:</p>
+<pre class="code-block"><code>QSO: 14250 PH 2026-04-17 1234
+     SP5ABC     599 05   DL1XYZ     599 14</code></pre>
+                    </article>
+                </div>
+
+                <!-- DODATKOWE NARZĘDZIA -->
+                <h3 class="sub-h">Dodatkowe narzędzia</h3>
+                <ul class="plain two-col">
+                    <li><strong>HamAlert</strong> — <a href="https://hamalert.org" target="_blank" rel="noopener">hamalert.org</a> — powiadomienia o pojawieniu się wybranych stacji w DX Clusterach.</li>
+                    <li><strong>PSKReporter</strong> — <a href="https://pskreporter.info" target="_blank" rel="noopener">pskreporter.info</a> — mapa odbioru cyfrowych emisji (FT8/PSK) na świecie.</li>
+                    <li><strong>WSPRnet</strong> — <a href="https://wsprnet.org" target="_blank" rel="noopener">wsprnet.org</a> — Weak Signal Propagation Reporter, test propagacji bardzo niską mocą.</li>
+                    <li><strong>RBN</strong> — <a href="https://reversebeacon.net" target="_blank" rel="noopener">reversebeacon.net</a> — Reverse Beacon Network, automatyczne dekodery CW/FT8.</li>
+                    <li><strong>DX Heat</strong> — <a href="https://dxheat.com" target="_blank" rel="noopener">dxheat.com</a> — ładny kluster.</li>
+                    <li><strong>DX Summit</strong> — <a href="http://www.dxsummit.fi" target="_blank" rel="noopener">dxsummit.fi</a> — klasyczny kluster (OH).</li>
+                    <li><strong>Logbook PZK</strong> — dziennik prowadzony przez Polski Związek Krótkofalowców.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SPRZĘT -->
+        <section id="sprzet" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Sprzęt dla początkujących</h2>
+                    <p class="section-sub">
+                        Krótki przewodnik: od taniego handie-talkie VHF/UHF po pełną stację KF. Wszystkie ceny orientacyjne.
+                    </p>
+                </div>
+                <div class="clubs-grid">
+                    <article class="club-card"><div class="club-call">HT · ~150 zł</div><h3>Baofeng UV-5R / UV-82</h3><p>Klasyczny Chińczyk VHF/UHF. Słaby filtr odbioru, ale idealny do nauki i przemienników. Każdy zaczynał.</p></article>
+                    <article class="club-card"><div class="club-call">HT · ~700 zł</div><h3>Yaesu FT-65 / FT-4X</h3><p>Solidniejszy handheld VHF/UHF, lepszy odbiornik. Cywilizowane radio do codziennego nosznia.</p></article>
+                    <article class="club-card"><div class="club-call">HT · ~2000 zł</div><h3>Yaesu FT-5D / Icom ID-52</h3><p>Dual-band z cyfrowym modem (C4FM / D-STAR), GPS, APRS. Flagowce HT.</p></article>
+                    <article class="club-card"><div class="club-call">KF · ~4500 zł</div><h3>Yaesu FT-891 / Icom IC-7100</h3><p>Mobilne radio KF+6m (+VHF/UHF w IC-7100). Świetny start w HF.</p></article>
+                    <article class="club-card"><div class="club-call">KF · ~6500 zł</div><h3>Icom IC-7300</h3><p>Najpopularniejszy stacjonarny TRX. Bezpośrednia próbkowana odbiorcza, panel dotykowy, waterfall.</p></article>
+                    <article class="club-card"><div class="club-call">KF · ~10000 zł</div><h3>Yaesu FTDX-10 / IC-7610</h3><p>Stacje klasy wyższej dla contestowców i DX-erów.</p></article>
+                    <article class="club-card"><div class="club-call">QRP · ~2500 zł</div><h3>Xiegu G90 / X6100</h3><p>Portable 20 W, antena tuner wbudowany — idealne w teren, SOTA, POTA.</p></article>
+                    <article class="club-card"><div class="club-call">QRP DIY</div><h3>QRP Labs QCX / QMX</h3><p>Zestawy do samodzielnej budowy. ~300 zł za monobandowe CW, miłość dla lutowniczych.</p></article>
+                </div>
+
+                <div class="info-callout" style="margin-top:2rem">
+                    <h3>Anteny — podstawowe typy</h3>
+                    <ul>
+                        <li><strong>Dipol λ/2</strong> — klasyka, długość ramienia ≈ 71,25 / f(MHz), całości 142,5 / f(MHz). Z uwzględnieniem skrócenia ×0,95.</li>
+                        <li><strong>G5RV</strong> — multiband KF, długa przeciwwaga + tuner.</li>
+                        <li><strong>W3DZZ</strong> — trap dipol multiband.</li>
+                        <li><strong>End-Fed Half-Wave (EFHW)</strong> — zasilana z końca, trafo 49:1 lub 64:1 — modna w terenie.</li>
+                        <li><strong>Vertical / GP</strong> — pionowa na KF, wymaga przeciwwag (radials).</li>
+                        <li><strong>Yagi</strong> — kierunkowa, wysoki zysk, skręca się w azymucie (rotator).</li>
+                        <li><strong>Magnetic Loop</strong> — mała, wąskopasmowa, idealna na balkon.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- BHP -->
+        <section id="bhp" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Bezpieczeństwo i BHP</h2>
+                    <p class="section-sub">
+                        Krótkofalarstwo wiąże się z wysokimi napięciami, prądem RF i pracą na wysokości. Poniżej
+                        najważniejsze zasady.
+                    </p>
+                </div>
+
+                <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>⚡ Napięcia</h3><span class="chip">PA, zasilacze</span></header>
+                        <ul class="plain">
+                            <li>Wzmacniacze lampowe mają napięcia rzędu <strong>2000–4000 V DC</strong>.</li>
+                            <li>Nigdy nie pracuj z otwartym PA pod napięciem.</li>
+                            <li>Kondensatory filtrujące — <strong>rozładuj</strong> przed demontażem.</li>
+                            <li>Oznaczenia <strong>HV</strong>, blokady bezpieczeństwa (interlock) — szanuj je.</li>
+                        </ul>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🔥 Prąd RF</h3><span class="chip">Oparzenia</span></header>
+                        <ul class="plain">
+                            <li>RF powoduje oparzenia głębokie (ogrzewa dielektrycznie).</li>
+                            <li>Nie dotykaj anten podczas nadawania.</li>
+                            <li>Uważaj na otwarte końcówki linii zasilających anteny.</li>
+                            <li>Przekroczenie PEA (pole elektromagnetyczne) — oblicz strefy BHP wokół anteny.</li>
+                        </ul>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🌩️ Burze</h3><span class="chip">Uziemienie</span></header>
+                        <ul class="plain">
+                            <li>Odłączaj anteny i zasilanie przed burzą.</li>
+                            <li>Zainstaluj uziemienie stacji (bezpośrednio do bednarki/szpili).</li>
+                            <li>Zabezpieczenia przepięciowe (gas discharge, varystor) na gniazdach antenowych.</li>
+                        </ul>
+                    </article>
+                    <article class="band-card">
+                        <header><h3>🪜 Wysokość</h3><span class="chip">Maszty, anteny</span></header>
+                        <ul class="plain">
+                            <li>Masz anteny wysoko? Ubezpiecz się (szelki, asekuracja).</li>
+                            <li>Trzymaj się zasad BHP przy pracach na wysokości.</li>
+                            <li>Sprawdzaj stan lin, obejm, przewodów — raz w roku.</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SŁOWNIK -->
+        <section id="slownik" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Słownik radioamatora</h2>
+                    <p class="section-sub">
+                        Pojęcia i slang, które warto znać zanim pierwszy raz usiądziesz do radia.
+                    </p>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>Termin</th><th>Znaczenie</th></tr></thead>
+                        <tbody id="slownik-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
         <!-- KLUBY -->
         <section id="kluby" class="section section-alt">
             <div class="container">
@@ -331,115 +1273,17 @@
                         </ul>
                     </article>
 
-                    <article class="club-card">
-                        <div class="club-call">SP5KAB</div>
-                        <h3>Warszawski OT PZK</h3>
-                        <p>Oddział Terenowy PZK w Warszawie (OT-25). Spotkania, kursy na świadectwo operatora, wyprawy.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Warszawa</li>
-                            <li><strong>Pasma:</strong> KF + VHF/UHF</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP6PCM</div>
-                        <h3>Klub Krótkofalowców Wrocław</h3>
-                        <p>Dolnośląski klub z wieloletnią tradycją, aktywny w zawodach KF i UKF, prowadzi przemienniki.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Wrocław</li>
-                            <li><strong>OT:</strong> OT-08</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP9KDA</div>
-                        <h3>Śląski Klub Krótkofalowców</h3>
-                        <p>Klub z Górnego Śląska — KF, UKF, SOTA, POTA. Współorganizator zlotów krótkofalarskich.</p>
-                        <ul class="club-meta">
-                            <li><strong>Region:</strong> Katowice / Śląsk</li>
-                            <li><strong>OT:</strong> OT-06</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP2KFQ</div>
-                        <h3>Bydgoski Klub Krótkofalowców</h3>
-                        <p>Aktywny klub w regionie kujawsko-pomorskim, SP2YWL, kontesty, wyprawy SOTA i IOTA.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Bydgoszcz</li>
-                            <li><strong>OT:</strong> OT-04</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP3POB</div>
-                        <h3>Poznański Klub Krótkofalowców</h3>
-                        <p>Wielkopolski klub krótkofalarski. Regularne spotkania klubowe, praca w zawodach.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Poznań</li>
-                            <li><strong>OT:</strong> OT-08</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP8KAF</div>
-                        <h3>Lubelski Klub Krótkofalowców</h3>
-                        <p>Klub zrzeszający krótkofalowców z Lublina i okolic, organizator zawodów lokalnych.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Lublin</li>
-                            <li><strong>OT:</strong> OT-05</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP4KM</div>
-                        <h3>Klub Krótkofalowców Białystok</h3>
-                        <p>Podlaski klub, specjalizuje się w łącznościach KF, aktywny w IOTA i SOTA.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Białystok</li>
-                            <li><strong>OT:</strong> OT-50</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP7PKI</div>
-                        <h3>Łódzki Klub Krótkofalowców</h3>
-                        <p>Jeden z najstarszych klubów w Polsce, działa od lat 50. XX wieku.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Łódź</li>
-                            <li><strong>OT:</strong> OT-15</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP1KSH</div>
-                        <h3>Szczeciński Klub Krótkofalowców</h3>
-                        <p>Pomorze Zachodnie — klub aktywny w zawodach morskich i IOTA.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Szczecin</li>
-                            <li><strong>OT:</strong> OT-14</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP2PIK</div>
-                        <h3>Gdański Klub Krótkofalowców</h3>
-                        <p>Trójmiejski klub — wyprawy DX, regaty, łączności z obszaru morskiego Bałtyku.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Gdańsk</li>
-                            <li><strong>OT:</strong> OT-14</li>
-                        </ul>
-                    </article>
-
-                    <article class="club-card">
-                        <div class="club-call">SP9KRT</div>
-                        <h3>Krakowski Klub Krótkofalowców</h3>
-                        <p>Małopolska — aktywni w SOTA (Tatry, Beskidy), KF i UKF.</p>
-                        <ul class="club-meta">
-                            <li><strong>Miasto:</strong> Kraków</li>
-                            <li><strong>OT:</strong> OT-12</li>
-                        </ul>
-                    </article>
+                    <article class="club-card"><div class="club-call">SP5KAB</div><h3>Warszawski OT PZK</h3><p>Oddział Terenowy PZK w Warszawie (OT-25).</p><ul class="club-meta"><li><strong>Miasto:</strong> Warszawa</li><li><strong>Pasma:</strong> KF + VHF/UHF</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP6PCM</div><h3>Klub Krótkofalowców Wrocław</h3><p>Dolnośląski klub, aktywny w zawodach KF i UKF.</p><ul class="club-meta"><li><strong>Miasto:</strong> Wrocław</li><li><strong>OT:</strong> OT-08</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP9KDA</div><h3>Śląski Klub Krótkofalowców</h3><p>Górny Śląsk — KF, UKF, SOTA, POTA.</p><ul class="club-meta"><li><strong>Region:</strong> Katowice / Śląsk</li><li><strong>OT:</strong> OT-06</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP2KFQ</div><h3>Bydgoski Klub Krótkofalowców</h3><p>Kujawsko-pomorskie, SP2YWL, kontesty, SOTA, IOTA.</p><ul class="club-meta"><li><strong>Miasto:</strong> Bydgoszcz</li><li><strong>OT:</strong> OT-04</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP3POB</div><h3>Poznański Klub Krótkofalowców</h3><p>Wielkopolska — spotkania, zawody, szkolenia.</p><ul class="club-meta"><li><strong>Miasto:</strong> Poznań</li><li><strong>OT:</strong> OT-08</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP8KAF</div><h3>Lubelski Klub Krótkofalowców</h3><p>Zrzesza krótkofalowców z Lublina i okolic.</p><ul class="club-meta"><li><strong>Miasto:</strong> Lublin</li><li><strong>OT:</strong> OT-05</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP4KM</div><h3>Klub Krótkofalowców Białystok</h3><p>Podlasie — KF, IOTA, SOTA.</p><ul class="club-meta"><li><strong>Miasto:</strong> Białystok</li><li><strong>OT:</strong> OT-50</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP7PKI</div><h3>Łódzki Klub Krótkofalowców</h3><p>Jeden z najstarszych klubów w Polsce (lata 50.).</p><ul class="club-meta"><li><strong>Miasto:</strong> Łódź</li><li><strong>OT:</strong> OT-15</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP1KSH</div><h3>Szczeciński Klub Krótkofalowców</h3><p>Pomorze Zachodnie — zawody morskie, IOTA.</p><ul class="club-meta"><li><strong>Miasto:</strong> Szczecin</li><li><strong>OT:</strong> OT-14</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP2PIK</div><h3>Gdański Klub Krótkofalowców</h3><p>Trójmiasto — wyprawy DX, regaty, Bałtyk.</p><ul class="club-meta"><li><strong>Miasto:</strong> Gdańsk</li><li><strong>OT:</strong> OT-14</li></ul></article>
+                    <article class="club-card"><div class="club-call">SP9KRT</div><h3>Krakowski Klub Krótkofalowców</h3><p>Małopolska — SOTA (Tatry, Beskidy), KF i UKF.</p><ul class="club-meta"><li><strong>Miasto:</strong> Kraków</li><li><strong>OT:</strong> OT-12</li></ul></article>
                 </div>
 
                 <div class="info-callout">
@@ -454,11 +1298,36 @@
             </div>
         </section>
 
-        <!-- FOOTER CTA -->
+        <!-- HISTORIA -->
+        <section id="historia" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Historia krótkofalarstwa w Polsce</h2>
+                    <p class="section-sub">
+                        Od iskrowników początku XX wieku, przez radiotelegrafistów międzywojnia, aż po współczesne FT8.
+                    </p>
+                </div>
+                <ul class="timeline">
+                    <li><strong>1898</strong> — pierwsze próby transmisji radiowych na ziemiach polskich.</li>
+                    <li><strong>1925</strong> — pierwsze łączności amatorskie z Polski (TPR3 – Tadeusz Heftman).</li>
+                    <li><strong>24.02.1930</strong> — powstaje <strong>Polski Związek Krótkofalowców</strong>.</li>
+                    <li><strong>1930</strong> — Polska przystępuje do IARU.</li>
+                    <li><strong>1939–1945</strong> — wojna; krótkofalowcy wspierają łączność konspiracyjną (AK). Wielu poległo.</li>
+                    <li><strong>1950-te</strong> — reaktywacja PZK, ale praca na falach pod ścisłą kontrolą państwa.</li>
+                    <li><strong>1960-te</strong> — rozkwit klubów terenowych (kluby LOK, szkolne, wojskowe).</li>
+                    <li><strong>1989</strong> — pełna wolność łączności, liberalizacja pozwoleń.</li>
+                    <li><strong>2000-te</strong> — masowe wprowadzenie cyfrowych emisji (PSK31, D-STAR, EchoLink).</li>
+                    <li><strong>2017</strong> — FT8 autorstwa K1JT i K9AN rewolucjonizuje świat DX.</li>
+                    <li><strong>dziś</strong> — ponad 10 tys. polskich krótkofalowców, setki klubów, aktywność terenowa (SOTA/POTA).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA -->
         <section class="cta-banner">
             <div class="container">
                 <h2>73 de SP — dobrej łączności!</h2>
-                <p>Strona informacyjna o krótkofalarstwie · hostowana lokalnie · przygotowano w Cursor AI.</p>
+                <p>Strona informacyjna o krótkofalarstwie · hostowana na GitHub Pages · przygotowano w Cursor AI.</p>
             </div>
         </section>
     </main>
@@ -473,6 +1342,21 @@
         </div>
     </footer>
 
+    <!-- Przycisk "wróć na górę" -->
+    <button id="back-to-top" class="back-to-top" aria-label="Wróć na górę strony" title="Wróć na górę">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="currentColor"/></svg>
+    </button>
+
     <script src="script.js"></script>
+    <script>
+        // Rejestracja Service Workera (PWA / offline)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(() => {
+                    /* Bezgłośna awaria — strona działa normalnie online */
+                });
+            });
+        }
+    </script>
 </body>
 </html>
