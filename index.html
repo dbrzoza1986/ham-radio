@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kompendium krótkofalarstwa - kody Q, pasma KF/VHF/UHF, częstotliwości w Polsce, kluby krótkofalarskie.">
+    <title>Krótkofalarstwo — Kompendium | Kody Q, Pasma, Częstotliwości</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📻%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#top" class="logo">
+                <span class="logo-icon" aria-hidden="true">📻</span>
+                <span class="logo-text">
+                    <strong>Krótkofalarstwo</strong>
+                    <small>Kompendium wiedzy</small>
+                </span>
+            </a>
+            <nav class="main-nav" aria-label="Nawigacja główna">
+                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul id="nav-list" class="nav-list">
+                    <li><a href="#kody-q">Kody Q</a></li>
+                    <li><a href="#pasma">Pasma</a></li>
+                    <li><a href="#czestotliwosci-pl">Częstotliwości PL</a></li>
+                    <li><a href="#alarmowe">Alarmowe</a></li>
+                    <li><a href="#kluby">Kluby</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="top">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container hero-inner">
+                <div class="hero-badge">73 de SP · Ham Radio</div>
+                <h1>Krótkofalarstwo<br><span class="accent">od A do Z</span></h1>
+                <p class="lead">
+                    Kompendium wiedzy o radioamatorstwie: <strong>kody Q</strong>, zakresy pasm
+                    <strong> KF / VHF / UHF</strong>, najpopularniejsze <strong>częstotliwości w Polsce</strong>,
+                    kanały <strong>alarmowe</strong> oraz <strong>kluby krótkofalarskie</strong>.
+                </p>
+                <div class="hero-cta">
+                    <a href="#kody-q" class="btn btn-primary">Zobacz kody Q</a>
+                    <a href="#czestotliwosci-pl" class="btn btn-ghost">Częstotliwości PL</a>
+                </div>
+
+                <div class="hero-stats" aria-label="Szybkie statystyki">
+                    <div><strong>50+</strong><span>kodów Q</span></div>
+                    <div><strong>9</strong><span>pasm KF</span></div>
+                    <div><strong>2m / 70cm</strong><span>VHF / UHF</span></div>
+                    <div><strong>145.500</strong><span>wywołanie FM</span></div>
+                </div>
+            </div>
+            <div class="hero-waves" aria-hidden="true">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="currentColor"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- KODY Q -->
+        <section id="kody-q" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Kody Q</h2>
+                    <p class="section-sub">
+                        Międzynarodowe trzyliterowe skróty rozpoczynające się od litery „Q", stosowane w łączności
+                        radiowej. Używane jako stwierdzenie lub jako pytanie (ze znakiem „?").
+                    </p>
+                </div>
+
+                <div class="qcode-controls">
+                    <label class="search-field">
+                        <span class="sr-only">Szukaj kodu Q lub znaczenia</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                        <input id="qsearch" type="search" placeholder="Filtruj np. QRZ, częstotliwość, siła sygnału..." autocomplete="off">
+                    </label>
+                    <p class="qcode-count"><span id="qcount">0</span> z <span id="qtotal">0</span> kodów</p>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table qtable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Kod</th>
+                                <th scope="col">Pytanie (kod ?)</th>
+                                <th scope="col">Odpowiedź / Znaczenie</th>
+                            </tr>
+                        </thead>
+                        <tbody id="qtable-body">
+                            <!-- wypełniane przez JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="note">
+                    Wskazówka: w mowie powszechnej używa się form typu „<em>QRZ?</em>" — „kto mnie woła?",
+                    „<em>73</em>" — „pozdrowienia", „<em>88</em>" — „uściski" (tradycyjnie do operatorek).
+                </p>
+            </div>
+        </section>
+
+        <!-- PASMA -->
+        <section id="pasma" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Pasma KF / VHF / UHF</h2>
+                    <p class="section-sub">
+                        Podział widma radiowego wykorzystywany w służbie amatorskiej. Poniższe zakresy są zgodne
+                        z <strong>IARU Region 1</strong> i polskim planem zagospodarowania pasm (PZK).
+                    </p>
+                </div>
+
+                <div class="bands-grid">
+                    <article class="band-card band-hf">
+                        <header>
+                            <h3>KF — Fale krótkie (HF)</h3>
+                            <span class="chip">3 – 30 MHz</span>
+                        </header>
+                        <p>Łączności dalekodystansowe (DX) dzięki odbiciu fal od jonosfery. Pasmo klasyczne dla radioamatorów.</p>
+                        <table class="data-table compact">
+                            <thead>
+                                <tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>160 m</td><td>1.810 – 2.000 MHz</td><td>„Top band", nocne DX</td></tr>
+                                <tr><td>80 m</td><td>3.500 – 3.800 MHz</td><td>Łączności regionalne, SN0HQ</td></tr>
+                                <tr><td>60 m</td><td>5.351,5 – 5.366,5 MHz</td><td>Pasmo ograniczone</td></tr>
+                                <tr><td>40 m</td><td>7.000 – 7.200 MHz</td><td>DX dzień/noc</td></tr>
+                                <tr><td>30 m</td><td>10.100 – 10.150 MHz</td><td>Tylko CW / cyfrowe</td></tr>
+                                <tr><td>20 m</td><td>14.000 – 14.350 MHz</td><td>Król pasm DX-owych</td></tr>
+                                <tr><td>17 m</td><td>18.068 – 18.168 MHz</td><td>WARC, bez zawodów</td></tr>
+                                <tr><td>15 m</td><td>21.000 – 21.450 MHz</td><td>Propagacja w słońcu</td></tr>
+                                <tr><td>12 m</td><td>24.890 – 24.990 MHz</td><td>WARC</td></tr>
+                                <tr><td>10 m</td><td>28.000 – 29.700 MHz</td><td>Sporadic-E, FM simplex</td></tr>
+                            </tbody>
+                        </table>
+                    </article>
+
+                    <article class="band-card band-vhf">
+                        <header>
+                            <h3>VHF — Fale ultrakrótkie</h3>
+                            <span class="chip">30 – 300 MHz</span>
+                        </header>
+                        <p>Łączności lokalne i regionalne, przemienniki FM, SSB, satelity, meteor scatter, aurora, tropo.</p>
+                        <table class="data-table compact">
+                            <thead>
+                                <tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>6 m</td><td>50.000 – 52.000 MHz</td><td>„Magic band", Es</td></tr>
+                                <tr><td>4 m</td><td>70.000 – 70.300 MHz</td><td>W PL pozwolenie indywidualne</td></tr>
+                                <tr><td>2 m</td><td>144.000 – 146.000 MHz</td><td>Najpopularniejsze VHF</td></tr>
+                            </tbody>
+                        </table>
+                    </article>
+
+                    <article class="band-card band-uhf">
+                        <header>
+                            <h3>UHF — Fale decymetrowe</h3>
+                            <span class="chip">300 – 3000 MHz</span>
+                        </header>
+                        <p>Przemienniki, DMR/D-STAR/C4FM, komunikacja miejska, łączności satelitarne, ATV.</p>
+                        <table class="data-table compact">
+                            <thead>
+                                <tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>70 cm</td><td>430.000 – 440.000 MHz</td><td>FM, DMR, D-STAR</td></tr>
+                                <tr><td>23 cm</td><td>1240 – 1300 MHz</td><td>ATV, satelity</td></tr>
+                                <tr><td>13 cm</td><td>2300 – 2450 MHz</td><td>Mikrofale amatorskie</td></tr>
+                            </tbody>
+                        </table>
+                    </article>
+                </div>
+
+                <div class="propagation-note">
+                    <h4>Szybka ściąga propagacyjna</h4>
+                    <ul>
+                        <li><strong>KF</strong> — odbicie od jonosfery, zasięg tysięcy km (DX).</li>
+                        <li><strong>VHF</strong> — fala przyziemna + tropo, zwykle zasięg optyczny 50–300 km.</li>
+                        <li><strong>UHF</strong> — niemal wyłącznie LOS (line of sight), idealne dla miast i przemienników.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CZĘSTOTLIWOŚCI PL -->
+        <section id="czestotliwosci-pl" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Najpopularniejsze częstotliwości w Polsce</h2>
+                    <p class="section-sub">
+                        Wybór najważniejszych kanałów wywoławczych, simpleksowych i przemiennikowych wykorzystywanych
+                        przez polskich krótkofalowców i użytkowników PMR/CB.
+                    </p>
+                </div>
+
+                <div class="freq-grid">
+                    <article class="freq-card highlight">
+                        <h3>📞 Wywołanie ogólne</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">145.500 MHz</span><span class="desc">FM wywoławcza 2 m (VHF)</span></li>
+                            <li><span class="freq">433.500 MHz</span><span class="desc">FM wywoławcza 70 cm (UHF)</span></li>
+                            <li><span class="freq">3.760 MHz</span><span class="desc">SSB wywoławcza 80 m (LSB)</span></li>
+                            <li><span class="freq">7.090 MHz</span><span class="desc">SSB wywoławcza 40 m (LSB)</span></li>
+                            <li><span class="freq">14.285 MHz</span><span class="desc">SSB QRP 20 m (USB)</span></li>
+                            <li><span class="freq">50.110 MHz</span><span class="desc">DX wywoławcza 6 m (USB)</span></li>
+                            <li><span class="freq">144.300 MHz</span><span class="desc">SSB wywoławcza 2 m (USB)</span></li>
+                            <li><span class="freq">432.200 MHz</span><span class="desc">SSB wywoławcza 70 cm (USB)</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="freq-card alert" id="alarmowe">
+                        <h3>🚨 Częstotliwości alarmowe / ratunkowe</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">3.760 MHz</span><span class="desc">IARU R1 Emergency Centre of Activity 80 m</span></li>
+                            <li><span class="freq">7.110 MHz</span><span class="desc">IARU R1 Emergency CoA 40 m</span></li>
+                            <li><span class="freq">14.300 MHz</span><span class="desc">IARU R1 Emergency CoA 20 m</span></li>
+                            <li><span class="freq">18.160 MHz</span><span class="desc">IARU R1 Emergency CoA 17 m</span></li>
+                            <li><span class="freq">21.360 MHz</span><span class="desc">IARU R1 Emergency CoA 15 m</span></li>
+                            <li><span class="freq">145.500 MHz</span><span class="desc">PL — kanał wywoławczy, używany przy zagrożeniu</span></li>
+                            <li><span class="freq">433.500 MHz</span><span class="desc">PL — kanał wywoławczy UHF</span></li>
+                            <li><span class="freq">446.00625 MHz</span><span class="desc">PMR446 kanał 1 — turystyka / góry</span></li>
+                            <li><span class="freq">27.065 MHz</span><span class="desc">CB kanał 9 AM — ratunkowy (tradycja)</span></li>
+                            <li><span class="freq">27.185 MHz</span><span class="desc">CB kanał 19 AM — drogowy / TIR-y</span></li>
+                        </ul>
+                        <p class="small muted">
+                            ⚠️ W prawdziwym zagrożeniu życia zawsze dzwoń na <strong>112</strong>. Pasma amatorskie są uzupełnieniem.
+                        </p>
+                    </article>
+
+                    <article class="freq-card">
+                        <h3>📡 Simpleks FM 2 m (144 MHz)</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">144.800 MHz</span><span class="desc">APRS (pakietowa pozycja)</span></li>
+                            <li><span class="freq">145.200 MHz</span><span class="desc">Simpleks FM S20</span></li>
+                            <li><span class="freq">145.300 MHz</span><span class="desc">Simpleks FM S30</span></li>
+                            <li><span class="freq">145.500 MHz</span><span class="desc">Wywołanie ogólne S50</span></li>
+                            <li><span class="freq">145.525 MHz</span><span class="desc">Simpleks FM</span></li>
+                            <li><span class="freq">145.550 MHz</span><span class="desc">Simpleks FM</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="freq-card">
+                        <h3>📡 Simpleks FM 70 cm (430 MHz)</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">433.400 MHz</span><span class="desc">Simpleks FM</span></li>
+                            <li><span class="freq">433.450 MHz</span><span class="desc">Simpleks FM</span></li>
+                            <li><span class="freq">433.500 MHz</span><span class="desc">Wywołanie ogólne UHF</span></li>
+                            <li><span class="freq">433.550 MHz</span><span class="desc">Simpleks FM</span></li>
+                            <li><span class="freq">433.600 MHz</span><span class="desc">Simpleks FM</span></li>
+                            <li><span class="freq">434.000 MHz</span><span class="desc">ATV / transmisja obrazu</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="freq-card">
+                        <h3>🗼 Popularne przemienniki (repeaters)</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">145.600 – 145.7875 MHz</span><span class="desc">Przemienniki FM 2 m (shift −600 kHz)</span></li>
+                            <li><span class="freq">438.500 – 439.425 MHz</span><span class="desc">Przemienniki FM 70 cm (shift −7.6 MHz)</span></li>
+                            <li><span class="freq">CTCSS 88.5 / 103.5 Hz</span><span class="desc">Najczęstsze tony w PL</span></li>
+                            <li><span class="freq">DMR TG 260</span><span class="desc">Polska — sieć BrandMeister</span></li>
+                            <li><span class="freq">D-STAR REF030C</span><span class="desc">Polski reflektor D-STAR</span></li>
+                            <li><span class="freq">Echolink *POLSKA*</span><span class="desc">Konferencja 260</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="freq-card">
+                        <h3>🎙️ CB Radio (27 MHz)</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">Kanał 3 — 26.985 MHz</span><span class="desc">Ratownictwo górskie (tradycja) FM</span></li>
+                            <li><span class="freq">Kanał 9 — 27.065 MHz</span><span class="desc">Ratunkowy (emergency) AM/FM</span></li>
+                            <li><span class="freq">Kanał 11 — 27.085 MHz</span><span class="desc">Wywołanie ogólne</span></li>
+                            <li><span class="freq">Kanał 19 — 27.185 MHz</span><span class="desc">Drogowy / TIR (FM)</span></li>
+                            <li><span class="freq">Kanał 28 — 27.285 MHz</span><span class="desc">Turystyczny</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="freq-card">
+                        <h3>🚶 PMR446 / walkie-talkie</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">K1 — 446.00625 MHz</span><span class="desc">Turystyczny, góry (de facto)</span></li>
+                            <li><span class="freq">K2 — 446.01875 MHz</span><span class="desc">Ogólny</span></li>
+                            <li><span class="freq">K3 — 446.03125 MHz</span><span class="desc">Dzieci / zabawa</span></li>
+                            <li><span class="freq">K8 — 446.09375 MHz</span><span class="desc">Koordynacja grupowa</span></li>
+                            <li><span class="freq">16 kanałów</span><span class="desc">446.00625 – 446.19375 MHz, 12.5 kHz, bez licencji</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="freq-card">
+                        <h3>🌐 Mody cyfrowe (FT8, FT4, PSK)</h3>
+                        <ul class="freq-list">
+                            <li><span class="freq">3.573 MHz</span><span class="desc">FT8 — 80 m</span></li>
+                            <li><span class="freq">7.074 MHz</span><span class="desc">FT8 — 40 m</span></li>
+                            <li><span class="freq">10.136 MHz</span><span class="desc">FT8 — 30 m</span></li>
+                            <li><span class="freq">14.074 MHz</span><span class="desc">FT8 — 20 m</span></li>
+                            <li><span class="freq">21.074 MHz</span><span class="desc">FT8 — 15 m</span></li>
+                            <li><span class="freq">28.074 MHz</span><span class="desc">FT8 — 10 m</span></li>
+                            <li><span class="freq">50.313 MHz</span><span class="desc">FT8 — 6 m</span></li>
+                            <li><span class="freq">144.174 MHz</span><span class="desc">FT8 — 2 m</span></li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- KLUBY -->
+        <section id="kluby" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Kluby krótkofalarskie w Polsce</h2>
+                    <p class="section-sub">
+                        Wybór aktywnych klubów oraz organizacji zrzeszających polskich radioamatorów. Głównym
+                        stowarzyszeniem jest <strong>Polski Związek Krótkofalowców (PZK)</strong>.
+                    </p>
+                </div>
+
+                <div class="clubs-grid">
+                    <article class="club-card featured">
+                        <div class="club-call">SP0PZK</div>
+                        <h3>Polski Związek Krótkofalowców (PZK)</h3>
+                        <p>Ogólnopolska organizacja zrzeszająca krótkofalowców, członek IARU. Wydaje QSL, organizuje zawody, reprezentuje środowisko.</p>
+                        <ul class="club-meta">
+                            <li><strong>Zasięg:</strong> ogólnopolski</li>
+                            <li><strong>WWW:</strong> <a href="https://pzk.org.pl" target="_blank" rel="noopener">pzk.org.pl</a></li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP5KAB</div>
+                        <h3>Warszawski OT PZK</h3>
+                        <p>Oddział Terenowy PZK w Warszawie (OT-25). Spotkania, kursy na świadectwo operatora, wyprawy.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Warszawa</li>
+                            <li><strong>Pasma:</strong> KF + VHF/UHF</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP6PCM</div>
+                        <h3>Klub Krótkofalowców Wrocław</h3>
+                        <p>Dolnośląski klub z wieloletnią tradycją, aktywny w zawodach KF i UKF, prowadzi przemienniki.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Wrocław</li>
+                            <li><strong>OT:</strong> OT-08</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP9KDA</div>
+                        <h3>Śląski Klub Krótkofalowców</h3>
+                        <p>Klub z Górnego Śląska — KF, UKF, SOTA, POTA. Współorganizator zlotów krótkofalarskich.</p>
+                        <ul class="club-meta">
+                            <li><strong>Region:</strong> Katowice / Śląsk</li>
+                            <li><strong>OT:</strong> OT-06</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP2KFQ</div>
+                        <h3>Bydgoski Klub Krótkofalowców</h3>
+                        <p>Aktywny klub w regionie kujawsko-pomorskim, SP2YWL, kontesty, wyprawy SOTA i IOTA.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Bydgoszcz</li>
+                            <li><strong>OT:</strong> OT-04</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP3POB</div>
+                        <h3>Poznański Klub Krótkofalowców</h3>
+                        <p>Wielkopolski klub krótkofalarski. Regularne spotkania klubowe, praca w zawodach.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Poznań</li>
+                            <li><strong>OT:</strong> OT-08</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP8KAF</div>
+                        <h3>Lubelski Klub Krótkofalowców</h3>
+                        <p>Klub zrzeszający krótkofalowców z Lublina i okolic, organizator zawodów lokalnych.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Lublin</li>
+                            <li><strong>OT:</strong> OT-05</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP4KM</div>
+                        <h3>Klub Krótkofalowców Białystok</h3>
+                        <p>Podlaski klub, specjalizuje się w łącznościach KF, aktywny w IOTA i SOTA.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Białystok</li>
+                            <li><strong>OT:</strong> OT-50</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP7PKI</div>
+                        <h3>Łódzki Klub Krótkofalowców</h3>
+                        <p>Jeden z najstarszych klubów w Polsce, działa od lat 50. XX wieku.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Łódź</li>
+                            <li><strong>OT:</strong> OT-15</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP1KSH</div>
+                        <h3>Szczeciński Klub Krótkofalowców</h3>
+                        <p>Pomorze Zachodnie — klub aktywny w zawodach morskich i IOTA.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Szczecin</li>
+                            <li><strong>OT:</strong> OT-14</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP2PIK</div>
+                        <h3>Gdański Klub Krótkofalowców</h3>
+                        <p>Trójmiejski klub — wyprawy DX, regaty, łączności z obszaru morskiego Bałtyku.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Gdańsk</li>
+                            <li><strong>OT:</strong> OT-14</li>
+                        </ul>
+                    </article>
+
+                    <article class="club-card">
+                        <div class="club-call">SP9KRT</div>
+                        <h3>Krakowski Klub Krótkofalowców</h3>
+                        <p>Małopolska — aktywni w SOTA (Tatry, Beskidy), KF i UKF.</p>
+                        <ul class="club-meta">
+                            <li><strong>Miasto:</strong> Kraków</li>
+                            <li><strong>OT:</strong> OT-12</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="info-callout">
+                    <h3>Jak zostać krótkofalowcem?</h3>
+                    <ol>
+                        <li>Zdaj egzamin w <strong>UKE</strong> (Urząd Komunikacji Elektronicznej) — kategoria 1, 2 lub 3.</li>
+                        <li>Otrzymasz <strong>znak wywoławczy</strong> (np. SP5ABC, SQ8XYZ, SO9WXY).</li>
+                        <li>Zapisz się do klubu lub PZK, żeby zdobyć praktykę.</li>
+                        <li>Złóż pierwsze QSO — powodzenia! <strong>73!</strong></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER CTA -->
+        <section class="cta-banner">
+            <div class="container">
+                <h2>73 de SP — dobrej łączności!</h2>
+                <p>Strona informacyjna o krótkofalarstwie · hostowana lokalnie · przygotowano w Cursor AI.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span id="year"></span> · Kompendium krótkofalarstwa — projekt edukacyjny</p>
+            <p class="muted small">
+                Dane mają charakter informacyjny. W sprawach regulacyjnych kieruj się aktualnymi dokumentami
+                <strong>UKE</strong>, <strong>PZK</strong> oraz <strong>IARU Region 1</strong>.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
