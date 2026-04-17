@@ -159,6 +159,41 @@
                         </div>
                     </article>
 
+                    <!-- DŁUGOŚĆ FALI / ANTENA -->
+                    <article class="tool-card">
+                        <header>
+                            <h3>📏 Długość fali (λ) dla częstotliwości</h3>
+                            <span class="chip">c / f</span>
+                        </header>
+                        <p class="tool-desc">
+                            Wzór: <code>λ = c / f</code>, gdzie <code>c ≈ 299 792 458 m/s</code>.
+                            W praktyce: <code>λ [m] = 300 / f [MHz]</code>. Wynik prezentowany w <strong>cm</strong>
+                            wraz z typowymi długościami antenowymi (½ λ, ¼ λ, ⅝ λ).
+                        </p>
+                        <div class="tool-row">
+                            <label>Częstotliwość
+                                <input id="wl-freq" type="number" step="0.001" min="0.01" max="300000" value="145.500">
+                            </label>
+                            <label>Jednostka
+                                <select id="wl-unit">
+                                    <option value="MHz" selected>MHz</option>
+                                    <option value="kHz">kHz</option>
+                                    <option value="GHz">GHz</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">λ (pełna fala)</span><strong id="wl-full">— cm</strong></div>
+                            <div><span class="label">½ λ (dipol)</span><strong id="wl-half">— cm</strong></div>
+                            <div><span class="label">¼ λ (GP / vertical)</span><strong id="wl-quarter">— cm</strong></div>
+                            <div><span class="label">⅝ λ (5/8 GP)</span><strong id="wl-58">— cm</strong></div>
+                        </div>
+                        <p class="small muted" style="margin:0.4rem 0 0">
+                            To są wartości teoretyczne w próżni. Dla realnej anteny stosuje się współczynnik skrócenia
+                            (~0,95 dla przewodu w powietrzu) — patrz kalkulator dipola obok.
+                        </p>
+                    </article>
+
                     <!-- LOCATOR <-> LAT/LON -->
                     <article class="tool-card">
                         <header>

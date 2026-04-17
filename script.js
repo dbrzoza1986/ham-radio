@@ -207,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLoggers();
     renderGlossary();
     initDipoleCalc();
+    initWavelengthCalc();
     initLocatorConv();
     initAzimuth();
     initFindBand();
@@ -390,6 +391,40 @@ function initDipoleCalc() {
     };
     f.addEventListener('input', upd);
     k.addEventListener('input', upd);
+    upd();
+}
+
+/* ---- Długość fali (λ = c / f) ---- */
+function initWavelengthCalc() {
+    const f = document.getElementById('wl-freq');
+    const u = document.getElementById('wl-unit');
+    if (!f || !u) return;
+    const C = 299792458; // m/s
+    const upd = () => {
+        const v = parseFloat(f.value);
+        if (!isFinite(v) || v <= 0) {
+            ['wl-full','wl-half','wl-quarter','wl-58'].forEach(id => {
+                document.getElementById(id).textContent = '— cm';
+            });
+            return;
+        }
+        const mult = u.value === 'kHz' ? 1e3 : u.value === 'GHz' ? 1e9 : 1e6;
+        const hz = v * mult;
+        const lambdaM = C / hz;
+        const lambdaCm = lambdaM * 100;
+        const fmt = (cm) => {
+            if (cm >= 100000) return `${(cm / 100000).toFixed(3)} km (${cm.toFixed(0)} cm)`;
+            if (cm >= 100)    return `${(cm / 100).toFixed(3)} m (${cm.toFixed(1)} cm)`;
+            if (cm >= 1)      return `${cm.toFixed(2)} cm`;
+            return `${cm.toFixed(3)} cm (${(cm * 10).toFixed(2)} mm)`;
+        };
+        document.getElementById('wl-full').textContent    = fmt(lambdaCm);
+        document.getElementById('wl-half').textContent    = fmt(lambdaCm / 2);
+        document.getElementById('wl-quarter').textContent = fmt(lambdaCm / 4);
+        document.getElementById('wl-58').textContent      = fmt(lambdaCm * 5 / 8);
+    };
+    f.addEventListener('input', upd);
+    u.addEventListener('change', upd);
     upd();
 }
 
