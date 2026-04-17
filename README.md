@@ -20,7 +20,6 @@ Działa również offline (PWA).
 - **Licencje UKE** — kategorie 1/2/3 + klubowe.
 - **Emisje** — CW, SSB, FM, AM, RTTY, PSK31, FT8/FT4, JS8, VARA, DMR, D-STAR, C4FM.
 - **Programy dyplomowe** — SOTA, POTA, IOTA, WWFF, WCA, WWB, DXCC, WAS, WAZ, WAC.
-- **Kalendarz zawodów** — CQ WW, WPX, ARRL DX, IARU HF (SN0HQ), SPDX, UKF Maraton.
 - **QRZ.com i dzienniki łączności** — pełny przewodnik: rejestracja, biografia, logbook,
   XML API, porównanie 12 loggerów, LoTW/eQSL/ClubLog, ADIF, Cabrillo.
 - **Sprzęt dla początkujących** — od Baofeng UV-5R po Icom IC-7300 + anteny.
