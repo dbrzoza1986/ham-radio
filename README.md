@@ -107,6 +107,13 @@ npx --yes serve -l 8080 .
    zrobi resztę) lub **Deploy from a branch → main / root**.
 3. Po minucie strona pod `https://<login>.github.io/ham-radio/`.
 
+## Przemienniki
+
+- https://przemienniki.net/
+- https://mapy73.pl/
+- https://www.repeaterbook.com/
+- https://brandmeister.network/
+
 ## Uwagi
 
 - Dane mają charakter **informacyjny / edukacyjny**. W razie wątpliwości regulacyjnych

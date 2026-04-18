@@ -65,6 +65,7 @@
                     <li><a href="#rst-cw">RST & CW</a></li>
                     <li><a href="#pasma">Pasma</a></li>
                     <li><a href="#czestotliwosci-pl">Częstotliwości PL</a></li>
+                    <li><a href="#przemienniki">Przemienniki</a></li>
                     <li><a href="#locator">Locator</a></li>
                     <li><a href="#dxcc">DXCC / SP</a></li>
                     <li><a href="#emisje">Emisje</a></li>
@@ -652,6 +653,77 @@
                             <li><span class="freq">144.174 MHz</span><span class="desc">FT8 — 2 m</span></li>
                         </ul>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRZEMIENNIKI -->
+        <section id="przemienniki" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Przemienniki (FM / cyfrowe)</h2>
+                    <p class="section-sub">
+                        Przemiennik odbiera sygnał na jednej częstotliwości i nadaje go na innej, zwiększając zasięg
+                        lokalny i regionalny. Przed wywołaniem sprawdź poprawny <strong>shift</strong>, ton
+                        <strong>CTCSS</strong> oraz aktualny status obiektu.
+                    </p>
+                </div>
+
+                <div class="bands-grid">
+                    <article class="band-card band-vhf">
+                        <header><h3>2 m FM — plan pracy</h3><span class="chip">VHF</span></header>
+                        <ul class="plain">
+                            <li><strong>Wejście:</strong> 145.000 – 145.1875 MHz</li>
+                            <li><strong>Wyjście:</strong> 145.600 – 145.7875 MHz</li>
+                            <li><strong>Shift:</strong> −600 kHz (standard FM 2 m)</li>
+                            <li><strong>Krok:</strong> 12.5 kHz</li>
+                            <li><strong>Przykładowe tony:</strong> 88.5 Hz, 103.5 Hz (zależnie od obiektu)</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card band-uhf">
+                        <header><h3>70 cm FM — plan pracy</h3><span class="chip">UHF</span></header>
+                        <ul class="plain">
+                            <li><strong>Wejście:</strong> 430.900 – 431.825 MHz</li>
+                            <li><strong>Wyjście:</strong> 438.500 – 439.425 MHz</li>
+                            <li><strong>Shift:</strong> −7.6 MHz (standard FM 70 cm)</li>
+                            <li><strong>Krok:</strong> 12.5 kHz</li>
+                            <li><strong>Tryby:</strong> analog FM, lokalnie też DMR / C4FM / D-STAR</li>
+                        </ul>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Przykładowe przemienniki</h3><span class="chip">PL</span></header>
+                        <div class="table-wrap">
+                            <table class="data-table compact">
+                                <thead>
+                                    <tr><th>Nazwa</th><th>Wyjście</th><th>Wejście</th><th>CTCSS / tryb</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>SR5WA (Warszawa)</td><td>145.600 MHz</td><td>145.000 MHz</td><td>88.5 Hz · FM</td></tr>
+                                    <tr><td>SR9A (Katowice)</td><td>145.625 MHz</td><td>145.025 MHz</td><td>88.5 Hz · FM</td></tr>
+                                    <tr><td>SR3PO (Poznań)</td><td>145.650 MHz</td><td>145.050 MHz</td><td>67.0 Hz · FM</td></tr>
+                                    <tr><td>SR6W (Wrocław)</td><td>438.700 MHz</td><td>431.100 MHz</td><td>77.0 Hz · FM</td></tr>
+                                    <tr><td>SR2G (Gdańsk)</td><td>438.775 MHz</td><td>431.175 MHz</td><td>88.5 Hz · FM</td></tr>
+                                    <tr><td>SR8L (Lublin)</td><td>438.825 MHz</td><td>431.225 MHz</td><td>DMR / TG260</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="small muted" style="margin-top:0.7rem">
+                            Dane orientacyjne do nauki programowania radiotelefonu. Przed pracą w eterze zawsze
+                            potwierdź parametry w aktualnej bazie.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="propagation-note" style="margin-top:1.4rem">
+                    <h4>Aktualne bazy przemienników</h4>
+                    <ul>
+                        <li><a href="https://przemienniki.net/" target="_blank" rel="noopener">przemienniki.net</a> — polska baza z mapą i parametrami pracy.</li>
+                        <li><a href="https://mapy73.pl/" target="_blank" rel="noopener">mapy73.pl</a> — mapy aktywności i obiektów krótkofalarskich.</li>
+                        <li><a href="https://www.repeaterbook.com/" target="_blank" rel="noopener">repeaterbook.com</a> — globalna baza przemienników.</li>
+                        <li><a href="https://brandmeister.network/" target="_blank" rel="noopener">brandmeister.network</a> — sieć DMR, TG i dashboard.</li>
+                    </ul>
                 </div>
             </div>
         </section>
