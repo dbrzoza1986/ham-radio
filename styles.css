@@ -691,6 +691,30 @@ p code, td code {
     font-weight: 700;
 }
 
+/* ---------- LITEROWANIE ---------- */
+.spelling-card { gap: 1rem; }
+.spelling-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.spelling-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+}
+.spelling-box h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1rem;
+}
+.spelling-output {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--font-mono);
+    line-height: 1.55;
+}
+
 /* ---------- TOAST ---------- */
 .toast {
     position: fixed; bottom: 1.5rem; left: 50%;

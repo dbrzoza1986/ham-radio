@@ -203,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initQSearch();
     initQFilters();
     renderPhonetic();
+    initSpellingTool();
     renderCWAbbr();
     renderLoggers();
     renderGlossary();
@@ -328,6 +329,71 @@ function renderPhonetic() {
             <td class="muted">${pron}</td>
             <td>${pl}</td>
         </tr>`).join('');
+}
+
+/* ---------- LITEROWANIE PL / NATO ---------- */
+function initSpellingTool() {
+    const input = document.getElementById('spell-input');
+    const outPL = document.getElementById('spell-pl');
+    const outNato = document.getElementById('spell-nato');
+    if (!input || !outPL || !outNato) return;
+
+    const map = new Map(PHONETIC.map(([symbol, nato, _pron, pl]) => [
+        symbol.toUpperCase(),
+        { nato, pl }
+    ]));
+
+    const normalizedPolish = {
+        'Ą': 'A',
+        'Ć': 'C',
+        'Ę': 'E',
+        'Ł': 'L',
+        'Ń': 'N',
+        'Ó': 'O',
+        'Ś': 'S',
+        'Ź': 'Z',
+        'Ż': 'Z'
+    };
+
+    const spellText = (text) => {
+        const natoWords = [];
+        const plWords = [];
+        for (const rawChar of text.toUpperCase()) {
+            if (rawChar === ' ') {
+                natoWords.push('/');
+                plWords.push('/');
+                continue;
+            }
+            const char = normalizedPolish[rawChar] || rawChar;
+            const hit = map.get(char);
+            if (!hit) continue;
+            natoWords.push(hit.nato);
+            plWords.push(hit.pl);
+        }
+        return {
+            nato: natoWords.join(' '),
+            pl: plWords.join(' ')
+        };
+    };
+
+    const update = () => {
+        const value = input.value.trim();
+        if (!value) {
+            outPL.textContent = 'Wpisz tekst powyżej, aby zobaczyć literowanie.';
+            outNato.textContent = 'Wpisz tekst powyżej, aby zobaczyć literowanie.';
+            outPL.classList.add('muted');
+            outNato.classList.add('muted');
+            return;
+        }
+        const spelled = spellText(value);
+        outPL.textContent = spelled.pl || 'Brak obsługiwanych znaków.';
+        outNato.textContent = spelled.nato || 'Brak obsługiwanych znaków.';
+        outPL.classList.toggle('muted', !spelled.pl);
+        outNato.classList.toggle('muted', !spelled.nato);
+    };
+
+    input.addEventListener('input', update);
+    update();
 }
 
 /* ---------- SKRÓTY CW ---------- */

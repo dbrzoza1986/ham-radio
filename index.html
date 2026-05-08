@@ -62,6 +62,7 @@
                     <li><a href="#narzedzia">Narzędzia</a></li>
                     <li><a href="#kody-q">Kody Q</a></li>
                     <li><a href="#fonetyczny">Fonetyczny</a></li>
+                    <li><a href="#literowanie">Literowanie PL/NATO</a></li>
                     <li><a href="#rst-cw">RST & CW</a></li>
                     <li><a href="#pasma">Pasma</a></li>
                     <li><a href="#czestotliwosci-pl">Częstotliwości PL</a></li>
@@ -362,6 +363,39 @@
                     W Polsce powszechnie używa się wersji ICAO, choć w starych podręcznikach można spotkać formy typu
                     „Adam, Barbara, Celina". Cyfry: 0 = Zero, 1 = Wun/One, 9 = Niner (ICAO) — by uniknąć pomyłki z „nine/nein".
                 </p>
+            </div>
+        </section>
+
+        <!-- LITEROWANIE PL / NATO -->
+        <section id="literowanie" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Literowanie wg polskiego słownika i NATO</h2>
+                    <p class="section-sub">
+                        Wpisz znak wywoławczy, imię lub dowolny krótki tekst, a strona pokaże dwie wersje:
+                        <strong>polski słownik</strong> oraz <strong>ICAO/NATO</strong>.
+                    </p>
+                </div>
+                <article class="tool-card spelling-card">
+                    <div class="tool-row">
+                        <label>Tekst do literowania
+                            <input id="spell-input" type="text" maxlength="80" placeholder="Np. SP5ABC / SQ9XYZ / RADIOTECHNIKA" autocomplete="off">
+                        </label>
+                    </div>
+                    <div class="spelling-grid">
+                        <div class="spelling-box">
+                            <h3>Polski słownik</h3>
+                            <p id="spell-pl" class="spelling-output muted">Wpisz tekst powyżej, aby zobaczyć literowanie.</p>
+                        </div>
+                        <div class="spelling-box">
+                            <h3>ICAO / NATO</h3>
+                            <p id="spell-nato" class="spelling-output muted">Wpisz tekst powyżej, aby zobaczyć literowanie.</p>
+                        </div>
+                    </div>
+                    <p class="small muted" style="margin:0">
+                        Znaki specjalne są pomijane, a cyfry są czytane zgodnie z tabelą fonetyczną (NATO: One, Two, Niner).
+                    </p>
+                </article>
             </div>
         </section>
 
