@@ -207,11 +207,17 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCWAbbr();
     renderLoggers();
     renderGlossary();
+    renderBandTables();
+    renderCityLocators();
+    renderFt8List();
+    initHeroStats();
     initDipoleCalc();
     initWavelengthCalc();
     initLocatorConv();
     initAzimuth();
     initFindBand();
+    initSwrCalc();
+    initRepeaterShift();
     initClickToCopy();
     initGlobalSearch();
     initBackToTop();
@@ -249,8 +255,18 @@ function initNav() {
         a.addEventListener('click', () => {
             list.classList.remove('open');
             toggle.setAttribute('aria-expanded', 'false');
+            list.querySelectorAll('details.nav-group').forEach((d) => { d.open = false; });
         })
     );
+
+    list.querySelectorAll('details.nav-group').forEach((details) => {
+        details.addEventListener('toggle', () => {
+            if (!details.open) return;
+            list.querySelectorAll('details.nav-group').forEach((other) => {
+                if (other !== details) other.open = false;
+            });
+        });
+    });
 }
 
 /* ---------- KODY Q ---------- */
@@ -448,12 +464,18 @@ function initDipoleCalc() {
         const freq = parseFloat(f.value);
         const kk = parseFloat(k.value);
         if (!isFinite(freq) || freq <= 0 || !isFinite(kk) || kk <= 0) return;
-        const total = (142.5 / freq) * kk;
+        // Free-space half-wave is c/(2f) ≈ 150/f metres. Typical wire VF/end-effect ≈ 0.95
+        // so L = 150/f × k. Do not also use 142.5/f (that already embeds 0.95).
+        const C = 299792458;
+        const lambda = C / (freq * 1e6);
+        const freeHalf = lambda / 2;
+        const total = freeHalf * kk;
         const half = total / 2;
-        const lambda = 300 / freq;
         document.getElementById('dip-total').textContent = `${total.toFixed(2)} m`;
         document.getElementById('dip-half').textContent = `${half.toFixed(2)} m`;
         document.getElementById('dip-lambda').textContent = `${lambda.toFixed(2)} m`;
+        const freeEl = document.getElementById('dip-free');
+        if (freeEl) freeEl.textContent = `${freeHalf.toFixed(2)} m`;
     };
     f.addEventListener('input', upd);
     k.addEventListener('input', upd);
@@ -497,49 +519,65 @@ function initWavelengthCalc() {
 /* ---- Maidenhead ↔ lat/lon ---- */
 function locatorToLatLon(loc) {
     const s = String(loc || '').trim().toUpperCase();
-    if (!/^[A-R]{2}(\d{2}([A-X]{2})?)?$/.test(s)) return null;
-    // Field (A-R, 20°x10°)
+    if (!/^[A-R]{2}(\d{2}([A-X]{2}(\d{2})?)?)?$/.test(s)) return null;
     let lon = (s.charCodeAt(0) - 65) * 20 - 180;
     let lat = (s.charCodeAt(1) - 65) * 10 - 90;
-    // Square (0-9, 2°x1°)
+    let lonW = 20;
+    let latH = 10;
     if (s.length >= 4) {
         lon += parseInt(s[2], 10) * 2;
         lat += parseInt(s[3], 10) * 1;
+        lonW = 2;
+        latH = 1;
     }
-    // Subsquare (a-x, 5'x2.5')
     if (s.length >= 6) {
         lon += (s.charCodeAt(4) - 65) * (2 / 24);
         lat += (s.charCodeAt(5) - 65) * (1 / 24);
-        // Center of subsquare
-        lon += (2 / 24) / 2;
-        lat += (1 / 24) / 2;
-    } else if (s.length >= 4) {
-        lon += 1; lat += 0.5; // center of square
-    } else {
-        lon += 10; lat += 5; // center of field
+        lonW = 2 / 24;
+        latH = 1 / 24;
     }
+    if (s.length >= 8) {
+        lon += parseInt(s[6], 10) * (lonW / 10);
+        lat += parseInt(s[7], 10) * (latH / 10);
+        lonW /= 10;
+        latH /= 10;
+    }
+    lon += lonW / 2;
+    lat += latH / 2;
     return { lat, lon };
 }
 
-function latLonToLocator(lat, lon) {
+function latLonToLocator(lat, lon, len = 6) {
     if (!isFinite(lat) || !isFinite(lon)) return '';
     lat = Math.max(-90, Math.min(90, lat));
     lon = ((lon + 180) % 360 + 360) % 360 - 180;
-    const adjLon = lon + 180;
-    const adjLat = lat + 90;
-    const fieldLon = Math.floor(adjLon / 20);
-    const fieldLat = Math.floor(adjLat / 10);
-    const sqLon = Math.floor((adjLon % 20) / 2);
-    const sqLat = Math.floor((adjLat % 10) / 1);
-    const subLon = Math.floor(((adjLon - fieldLon * 20 - sqLon * 2) * 24) / 2);
-    const subLat = Math.floor(((adjLat - fieldLat * 10 - sqLat * 1) * 24) / 1);
-    return (
+    let adjLon = lon + 180;
+    let adjLat = lat + 90;
+    const fieldLon = Math.min(17, Math.max(0, Math.floor(adjLon / 20)));
+    const fieldLat = Math.min(17, Math.max(0, Math.floor(adjLat / 10)));
+    adjLon -= fieldLon * 20;
+    adjLat -= fieldLat * 10;
+    const sqLon = Math.min(9, Math.max(0, Math.floor(adjLon / 2)));
+    const sqLat = Math.min(9, Math.max(0, Math.floor(adjLat / 1)));
+    adjLon -= sqLon * 2;
+    adjLat -= sqLat * 1;
+    const subLon = Math.min(23, Math.max(0, Math.floor(adjLon * 12)));
+    const subLat = Math.min(23, Math.max(0, Math.floor(adjLat * 24)));
+    adjLon -= subLon / 12;
+    adjLat -= subLat / 24;
+    const extLon = Math.min(9, Math.max(0, Math.floor(adjLon * 120)));
+    const extLat = Math.min(9, Math.max(0, Math.floor(adjLat * 240)));
+    let out =
         String.fromCharCode(65 + fieldLon) +
         String.fromCharCode(65 + fieldLat) +
-        sqLon + sqLat +
-        String.fromCharCode(97 + subLon) +
-        String.fromCharCode(97 + subLat)
-    );
+        sqLon + sqLat;
+    if (len >= 6) {
+        out += String.fromCharCode(97 + subLon) + String.fromCharCode(97 + subLat);
+    }
+    if (len >= 8) {
+        out += String(extLon) + String(extLat);
+    }
+    return out;
 }
 
 function initLocatorConv() {
@@ -558,8 +596,15 @@ function initLocatorConv() {
         const lat = parseFloat(latIn.value);
         const lon = parseFloat(lonIn.value);
         const el = document.getElementById('ll-locator');
-        if (!isFinite(lat) || !isFinite(lon)) { el.textContent = '—'; return; }
-        el.textContent = latLonToLocator(lat, lon);
+        if (!isFinite(lat) || !isFinite(lon)) {
+            el.textContent = '—';
+            const el8 = document.getElementById('ll-locator8');
+            if (el8) el8.textContent = '—';
+            return;
+        }
+        el.textContent = latLonToLocator(lat, lon, 6);
+        const el8 = document.getElementById('ll-locator8');
+        if (el8) el8.textContent = latLonToLocator(lat, lon, 8);
     };
     locIn.addEventListener('input', updLoc);
     latIn.addEventListener('input', updLL);
@@ -602,7 +647,7 @@ function initAzimuth() {
         if (!p1 || !p2) { dEl.textContent = '—'; bEl.textContent = '—'; rEl.textContent = '—'; return; }
         const d = haversine(p1.lat, p1.lon, p2.lat, p2.lon);
         const br = bearing(p1.lat, p1.lon, p2.lat, p2.lon);
-        const rev = (br + 180) % 360;
+        const rev = bearing(p2.lat, p2.lon, p1.lat, p1.lon);
         dEl.textContent = `${d.toFixed(0)} km`;
         bEl.textContent = `${br.toFixed(1)}°`;
         rEl.textContent = `${rev.toFixed(1)}°`;
@@ -613,58 +658,217 @@ function initAzimuth() {
 }
 
 /* ---- Znajdź pasmo ---- */
-const BANDS = [
-    { name: '2200 m',  from: 135.7,     to: 137.8,      notes: 'LF — tylko CW, bardzo wąskie.' },
-    { name: '630 m',   from: 472,       to: 479,        notes: 'MF — CW, cyfrowe.' },
-    { name: '160 m',   from: 1810,      to: 2000,       notes: 'KF „Top band” — nocne DX.' },
-    { name: '80 m',    from: 3500,      to: 3800,       notes: 'KF — SSB (LSB), CW. PL SSB wywoławcza 3.760.' },
-    { name: '60 m',    from: 5351.5,    to: 5366.5,     notes: 'KF — pasmo ograniczone (15 kHz).' },
-    { name: '40 m',    from: 7000,      to: 7200,       notes: 'KF — DX dzień/noc. PL wywoławcza 7.090.' },
-    { name: '30 m',    from: 10100,     to: 10150,      notes: 'KF · WARC · tylko CW i cyfrowe.' },
-    { name: '20 m',    from: 14000,     to: 14350,      notes: 'Król pasm DX. FT8 14.074.' },
-    { name: '17 m',    from: 18068,     to: 18168,      notes: 'KF · WARC · bez zawodów.' },
-    { name: '15 m',    from: 21000,     to: 21450,      notes: 'KF — aktywne w maksimum słonecznym.' },
-    { name: '12 m',    from: 24890,     to: 24990,      notes: 'KF · WARC.' },
-    { name: '10 m',    from: 28000,     to: 29700,      notes: 'KF — sporadic-E, FM simplex 29.600.' },
-    { name: '6 m',     from: 50000,     to: 52000,      notes: 'VHF — „magic band”, Es. FT8 50.313.' },
-    { name: '4 m',     from: 70000,     to: 70300,      notes: 'VHF — w PL pozwolenie indywidualne.' },
-    { name: '2 m',     from: 144000,    to: 146000,     notes: 'VHF — FM, SSB. Wywoławcze 144.300 / 145.500.' },
-    { name: '70 cm',   from: 430000,    to: 440000,     notes: 'UHF — FM, DMR, D-STAR. Wywoławcze 432.200 / 433.500.' },
-    { name: '23 cm',   from: 1240000,   to: 1300000,    notes: 'UHF — ATV, satelity.' },
-    { name: '13 cm',   from: 2300000,   to: 2450000,    notes: 'Mikrofale amatorskie.' },
-    { name: '9 cm',    from: 3400000,   to: 3475000,    notes: 'Mikrofale.' },
-    { name: '6 cm',    from: 5650000,   to: 5850000,    notes: 'Mikrofale.' },
-    { name: '3 cm',    from: 10000000,  to: 10500000,   notes: 'Mikrofale.' }
-];
+function toKHz(value, unit) {
+    if (unit === 'kHz') return value;
+    if (unit === 'GHz') return value * 1e6;
+    return value * 1000; // MHz
+}
 
-function findBand(freqKHz) {
-    return BANDS.find(b => freqKHz >= b.from && freqKHz <= b.to);
+function extraChannelNote(khz, entry) {
+    if (entry.channel === 'cb') {
+        const hit = nearestChannel(khz, CB_CHANNELS, 4);
+        if (!hit) return '';
+        const extra = hit.hint ? ` — ${hit.hint}` : '';
+        return `Kanał CEPT ${hit.ch} (${formatKHz(hit.khz)})${extra}.`;
+    }
+    if (entry.channel === 'pmr') {
+        const hit = nearestChannel(khz, PMR_CHANNELS, 4);
+        if (!hit) return '';
+        return `Kanał analogowy PMR446 ${hit.ch} (${formatKHz(hit.khz)}).`;
+    }
+    return '';
+}
+
+function renderFindBandHits(khz, region) {
+    const host = document.getElementById('fb-hits');
+    if (!host) return;
+    if (!isFinite(khz) || khz <= 0) {
+        host.innerHTML = '<p class="muted small">Wpisz częstotliwość.</p>';
+        return;
+    }
+    const hits = lookupFrequencies(khz, region);
+    const ft8 = ft8Near(khz);
+    if (!hits.length) {
+        host.innerHTML = `<div class="fb-hit fb-hit-empty">
+            <strong>Brak wpisu w katalogu</strong>
+            <p>To nie jest pasmo amatorskie IARU ${escapeHTML(region)} ani żadna z usług z katalogu (CB, PMR446, SRD, morskie, lotnicze, broadcast). Sprawdź jednostkę (kHz vs MHz).</p>
+        </div>`;
+        return;
+    }
+    host.innerHTML = hits.map((h) => {
+        const kind = h.matchKind;
+        const label = KIND_LABELS_PL[kind] || kind;
+        const range = formatRangeKHz(h.range[0], h.range[1]);
+        const seg = segmentFor(h.entry, khz);
+        const ch = extraChannelNote(khz, h.entry);
+        const other = h.otherRegions
+            ? `Przydział amatorski w ${h.otherRegions.join(', ')} — nie w ${region} / Polsce.`
+            : '';
+        const ft8Line = ft8 && kind === 'amateur'
+            ? `Konwencjonalny dial FT8: ${formatKHz(ft8.khz)} (${ft8.band}, WSJT-X).`
+            : '';
+        return `<article class="fb-hit kind-${kind}">
+            <header>
+                <h4>${escapeHTML(h.entry.name)}</h4>
+                <span class="chip">${escapeHTML(label)}</span>
+            </header>
+            <p class="fb-range">${escapeHTML(range)}</p>
+            ${seg ? `<p><span class="label">Segment / emisje</span> ${escapeHTML(formatRangeKHz(seg.from, seg.to))} — ${escapeHTML(seg.modes)}</p>` : ''}
+            ${ch ? `<p>${escapeHTML(ch)}</p>` : ''}
+            ${other ? `<p>${escapeHTML(other)}</p>` : ''}
+            ${ft8Line ? `<p>${escapeHTML(ft8Line)}</p>` : ''}
+            <p class="muted small">${escapeHTML(h.entry.notes || '')}</p>
+        </article>`;
+    }).join('');
 }
 
 function initFindBand() {
     const f = document.getElementById('fb-freq');
     const u = document.getElementById('fb-unit');
+    const r = document.getElementById('fb-region');
     if (!f || !u) return;
     const upd = () => {
         const v = parseFloat(f.value);
-        const band = document.getElementById('fb-band');
-        const seg = document.getElementById('fb-segment');
-        const notes = document.getElementById('fb-notes');
-        if (!isFinite(v) || v <= 0) { band.textContent = seg.textContent = notes.textContent = '—'; return; }
-        const khz = u.value === 'MHz' ? v * 1000 : v;
-        const hit = findBand(khz);
-        if (!hit) {
-            band.textContent = 'Poza pasmami amatorskimi (IARU R1)';
-            seg.textContent = '—';
-            notes.textContent = '—';
+        const region = r ? r.value : 'R1';
+        if (!isFinite(v) || v <= 0) {
+            renderFindBandHits(NaN, region);
             return;
         }
-        band.textContent = hit.name;
-        seg.textContent = `${(hit.from / 1000).toFixed(3)} – ${(hit.to / 1000).toFixed(3)} MHz`;
-        notes.textContent = hit.notes;
+        renderFindBandHits(toKHz(v, u.value), region);
     };
     f.addEventListener('input', upd);
     u.addEventListener('change', upd);
+    if (r) r.addEventListener('change', upd);
+    upd();
+}
+
+function initHeroStats() {
+    const q = document.getElementById('hero-q-count');
+    const hf = document.getElementById('hero-hf-count');
+    if (q) q.textContent = `${Q_CODES.filter((c) => c.code.startsWith('Q')).length}+`;
+    if (hf) hf.textContent = String(countAmateurHfR1());
+}
+
+function renderBandTables() {
+    const groups = [
+        { id: 'bands-lfmf-body', groups: ['LF', 'MF'], pasma: 'R1' },
+        { id: 'bands-hf-body', groups: ['HF'], pasma: 'R1' },
+        { id: 'bands-vhf-body', groups: ['VHF'], pasma: 'R1' },
+        { id: 'bands-uhf-body', groups: ['UHF'], pasma: 'R1' },
+        { id: 'bands-shf-body', groups: ['SHF'], pasma: 'R1' },
+        { id: 'bands-r2-body', groups: null, pasma: 'R2' }
+    ];
+    groups.forEach(({ id, groups: gset, pasma }) => {
+        const body = document.getElementById(id);
+        if (!body) return;
+        const rows = FREQ_CATALOG.filter((e) => {
+            if (e.kind !== 'amateur' || e.pasma !== pasma) return false;
+            if (gset && !gset.includes(e.group)) return false;
+            return true;
+        });
+        body.innerHTML = rows.map((e) => {
+            const rng = pasma === 'R2'
+                ? (e.alloc && (e.alloc.R2 || e.alloc.R1))
+                : (e.alloc && (e.alloc.R1 || e.alloc.R2));
+            const range = rng ? formatRangeKHz(rng[0], rng[1]) : '—';
+            const short = (e.notes || '').split('.')[0] + '.';
+            return `<tr><td>${escapeHTML(e.name)}</td><td>${escapeHTML(range)}</td><td>${escapeHTML(short)}</td></tr>`;
+        }).join('');
+    });
+}
+
+function renderCityLocators() {
+    const body = document.getElementById('locator-cities-body');
+    if (!body || typeof latLonToLocator !== 'function') return;
+    body.innerHTML = PL_CITIES.map((c) => {
+        const loc6 = latLonToLocator(c.lat, c.lon, 6);
+        const loc4 = loc6.slice(0, 4);
+        return `<tr><td>${escapeHTML(c.name)}</td><td><code>${escapeHTML(loc4)}</code> / <code>${escapeHTML(loc6)}</code></td></tr>`;
+    }).join('');
+}
+
+function renderFt8List() {
+    const list = document.getElementById('ft8-list');
+    if (!list) return;
+    list.innerHTML = FT8_DIALS.map((d) =>
+        `<li><span class="freq">${escapeHTML(formatKHz(d.khz))}</span><span class="desc">FT8 — ${escapeHTML(d.band)}</span></li>`
+    ).join('');
+}
+
+function initSwrCalc() {
+    const z0 = document.getElementById('swr-z0');
+    const zl = document.getElementById('swr-zl');
+    const pf = document.getElementById('swr-pf');
+    const pr = document.getElementById('swr-pr');
+    if (!z0 || !zl) return;
+    const upd = () => {
+        const z0v = parseFloat(z0.value);
+        const zlv = parseFloat(zl.value);
+        const out = document.getElementById('swr-from-z');
+        if (out) {
+            if (isFinite(z0v) && z0v > 0 && isFinite(zlv) && zlv > 0) {
+                const rho = Math.abs((zlv - z0v) / (zlv + z0v));
+                const swr = rho >= 1 ? Infinity : (1 + rho) / (1 - rho);
+                out.textContent = isFinite(swr) ? `${swr.toFixed(2)} : 1` : '∞';
+            } else {
+                out.textContent = '—';
+            }
+        }
+        if (pf && pr) {
+            const fwd = parseFloat(pf.value);
+            const ref = parseFloat(pr.value);
+            const outP = document.getElementById('swr-from-p');
+            if (!outP) return;
+            if (isFinite(fwd) && fwd > 0 && isFinite(ref) && ref >= 0) {
+                const ratio = Math.sqrt(ref / fwd);
+                const swr = ratio >= 1 ? Infinity : (1 + ratio) / (1 - ratio);
+                outP.textContent = isFinite(swr) ? `${swr.toFixed(2)} : 1` : '∞';
+            } else if (outP) {
+                outP.textContent = '—';
+            }
+        }
+    };
+    [z0, zl, pf, pr].forEach((el) => el && el.addEventListener('input', upd));
+    upd();
+}
+
+function initRepeaterShift() {
+    const out = document.getElementById('rep-out');
+    const mode = document.getElementById('rep-band');
+    if (!out || !mode) return;
+    const upd = () => {
+        const f = parseFloat(out.value);
+        const inEl = document.getElementById('rep-in');
+        const shEl = document.getElementById('rep-shift');
+        const nEl = document.getElementById('rep-notes');
+        if (!isFinite(f) || f <= 0) {
+            if (inEl) inEl.textContent = '—';
+            if (shEl) shEl.textContent = '—';
+            if (nEl) nEl.textContent = '—';
+            return;
+        }
+        let shift = 0;
+        let note = '';
+        const sel = mode.value;
+        if (sel === 'auto') {
+            if (f >= 145.6 && f <= 145.8) { shift = -0.6; note = 'IARU R1 2 m FM: wyjście 145.600–145.7875, shift −600 kHz.'; }
+            else if (f >= 144.0 && f <= 146.0) { shift = -0.6; note = 'Standard 2 m FM shift −600 kHz (sprawdź, czy to naprawdę wyjście przemiennika).'; }
+            else if (f >= 438.5 && f <= 439.5) { shift = -7.6; note = 'IARU R1 / PL 70 cm FM: wyjście ~438.5–439.425, shift −7.6 MHz.'; }
+            else if (f >= 430 && f <= 440) { shift = -7.6; note = 'Standard 70 cm FM w PL: −7.6 MHz. Potwierdź w przemienniki.net.'; }
+            else { shift = 0; note = 'Nie rozpoznano pasma 2 m / 70 cm. Wybierz pasmo ręcznie.'; }
+        } else if (sel === '2m') {
+            shift = -0.6;
+            note = 'IARU R1 2 m: shift −600 kHz.';
+        } else if (sel === '70cm') {
+            shift = -7.6;
+            note = 'IARU R1 / PL 70 cm: shift −7.6 MHz.';
+        }
+        if (inEl) inEl.textContent = shift ? `${(f + shift).toFixed(4)} MHz` : '—';
+        if (shEl) shEl.textContent = shift ? `${shift} MHz` : '—';
+        if (nEl) nEl.textContent = note;
+    };
+    out.addEventListener('input', upd);
+    mode.addEventListener('change', upd);
     upd();
 }
 
@@ -722,6 +926,24 @@ function buildSearchIndex() {
     }));
     LOGGERS.forEach(l => idx.push({
         cat: 'Logger', label: l.name, desc: `${l.os} · ${l.type}`, href: '#qrz'
+    }));
+    FREQ_CATALOG.forEach(e => idx.push({
+        cat: 'Pasmo / służba',
+        label: e.name,
+        desc: e.notes || '',
+        href: e.kind === 'amateur' ? '#pasma' : '#narzedzia'
+    }));
+    FT8_DIALS.forEach(d => idx.push({
+        cat: 'FT8',
+        label: formatKHz(d.khz),
+        desc: `FT8 — ${d.band}`,
+        href: '#czestotliwosci-pl'
+    }));
+    PL_CITIES.forEach(c => idx.push({
+        cat: 'Locator',
+        label: c.name,
+        desc: latLonToLocator(c.lat, c.lon, 6),
+        href: '#locator'
     }));
     // Częstotliwości z DOM
     document.querySelectorAll('#czestotliwosci-pl .freq-list li').forEach(li => {

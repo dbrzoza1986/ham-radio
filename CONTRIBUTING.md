@@ -41,7 +41,8 @@ nawet drobna (nowy klub, zaktualizowana częstotliwość, literówka), jest mile
 
 - `index.html` — struktura i cała treść merytoryczna.
 - `styles.css` — motyw, responsywność.
-- `script.js` — dane (kody Q, fonetyczny, CW, loggery, słownik) + logika narzędzi.
+- `script.js` — Q-codes, phonetics, CW, loggers, glossary, and calculator UI.
+- `freq-catalog.js` — IARU / CEPT / ITU frequency catalog for Find Band and band tables.
 - `sw.js` — service worker (PWA / offline).
 - `manifest.json` — manifest PWA.
 - `favicon.svg` — ikona.

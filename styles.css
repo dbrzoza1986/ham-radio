@@ -114,6 +114,59 @@ p { margin: 0 0 1em; }
 }
 .nav-toggle span { display: block; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
 
+.nav-group { position: relative; }
+.nav-group summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    border-radius: 10px;
+    font-size: 0.92rem;
+}
+.nav-group summary::-webkit-details-marker { display: none; }
+.nav-group summary::after { content: " ▾"; font-size: 0.75em; opacity: 0.7; }
+.nav-group summary:hover { color: var(--text); background: var(--bg-elev); }
+.nav-group[open] > summary { color: var(--text); background: var(--bg-elev); }
+.nav-group > ul {
+    position: absolute;
+    top: calc(100% - 4px);
+    left: 0;
+    min-width: 220px;
+    margin: 0;
+    padding: 0.4rem;
+    list-style: none;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    z-index: 50;
+}
+.nav-group > ul a { display: block; }
+
+.fb-hits { display: flex; flex-direction: column; gap: 0.7rem; }
+.fb-hit {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    background: var(--bg);
+}
+.fb-hit header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.6rem; margin-bottom: 0.35rem;
+}
+.fb-hit h4 { margin: 0; font-size: 1.02rem; }
+.fb-range { font-family: var(--font-mono); color: var(--accent); margin: 0 0 0.4rem; }
+.fb-hit p { margin: 0.25rem 0; color: var(--text-muted); font-size: 0.9rem; }
+.fb-hit .label { color: var(--text-dim); font-size: 0.8rem; margin-right: 0.35rem; }
+.fb-hit.kind-amateur { border-color: rgba(0, 212, 255, 0.4); }
+.fb-hit.kind-amateur-other { border-color: rgba(124, 92, 255, 0.45); }
+.fb-hit.kind-license-free { border-color: rgba(74, 222, 128, 0.4); }
+.fb-hit.kind-ism { border-color: rgba(255, 181, 69, 0.5); }
+.fb-hit.kind-professional { border-color: rgba(255, 92, 122, 0.4); }
+.fb-hit.kind-broadcast { border-color: rgba(167, 176, 214, 0.45); }
+.fb-hit-empty { border-style: dashed; }
+
 /* ---------- HERO ---------- */
 .hero {
     position: relative;
@@ -476,6 +529,14 @@ p { margin: 0 0 1em; }
         opacity: 1; pointer-events: auto;
     }
     .main-nav .nav-list a { display: block; padding: 0.7rem 1rem; border-radius: 8px; }
+    .nav-group { width: 100%; }
+    .nav-group summary { display: block; }
+    .nav-group > ul {
+        position: static;
+        border: 0;
+        background: transparent;
+        padding: 0 0 0.3rem 0.6rem;
+    }
     .freq-list li { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
     .freq-list .desc { text-align: left; }
 }

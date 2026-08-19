@@ -12,10 +12,13 @@ Działa również offline (PWA).
 - **Kody Q** — ponad 50 pozycji z filtrem (QRA…QUM + skróty typu 73/88, CQ, DX, YL, RST, K/KN/SK).
 - **Alfabet fonetyczny** ICAO/NATO + wersja polska (Adam, Barbara…).
 - **RST** + ponad 40 **skrótów CW** (AGN, FB, TNX, GM/GA/GE, HI HI, OP, PWR…).
-- **Pasma KF / VHF / UHF** — tabele zakresów zgodne z IARU Region 1 + pasma WARC.
+- **Pasma KF / VHF / UHF / SHF** — tabele zakresów IARU Region 1 (plus pasma tylko R2),
+  zsynchronizowane z katalogiem `freq-catalog.js`.
+- **Znajdź pasmo** — amatorskie R1/R2/R3, segmenty emisji, plus CB CEPT, PMR446,
+  SRD 433/868, ISM 2.4 GHz, marine VHF, airband, FM/MW/LW broadcast.
 - **Częstotliwości w Polsce** — wywoławcze, alarmowe (IARU R1 Emergency CoA), simpleks,
-  przemienniki, sieci cyfrowe (DMR TG 260, D-STAR, Echolink), CB, PMR446, FT8.
-- **Locator Maidenhead** — budowa + tabela polskich miast.
+  przemienniki, sieci cyfrowe (DMR TG 260, D-STAR, Echolink), CB, PMR446, FT8 (lista WSJT-X).
+- **Locator Maidenhead** — budowa + tabela polskich miast (liczona ze współrzędnych).
 - **DXCC** — prefiksy polskie + popularne kraje + okręgi wywoławcze SP1–SP9.
 - **Emisje** — CW, SSB, FM, AM, RTTY, PSK31, FT8/FT4, JS8, VARA, DMR, D-STAR, C4FM.
 - **Programy dyplomowe** — SOTA, POTA, IOTA, WWFF, WCA, WWB, DXCC, WAS, WAZ, WAC.
@@ -28,13 +31,15 @@ Działa również offline (PWA).
 - **Historia** krótkofalarstwa w Polsce (1898 – dziś).
 
 ### Narzędzia interaktywne
-- 📐 **Kalkulator długości dipola** — `L = 142,5 / f × k`.
-- 📍 **Konwerter Locator ↔ lat/lon** (Maidenhead w obie strony).
-- 🧭 **Azymut i odległość** między dwoma lokatorami (haversine).
-- 🔍 **Znajdź pasmo** — wpisz częstotliwość → pasmo, segment, emisje, uwagi.
-- 🔎 **Wyszukiwarka globalna** — przeszukuje kody Q, fonetyczny, CW, słownik, loggery, częstotliwości.
-- 🏷️ **Filtry kategorii** kodów Q (QR/QS/QT/QU/skróty).
-- 📋 **Click-to-copy** — kliknij dowolną częstotliwość, kopiuje się do schowka.
+- **Kalkulator długości dipola** — `L = (c / 2f) × k ≈ 150 / f × k`.
+- **Konwerter Locator ↔ lat/lon** (Maidenhead 2–8 znaków).
+- **Azymut i odległość** między dwoma lokatorami (haversine; azymut powrotny = bearing DX→Ty).
+- **Znajdź pasmo** — częstotliwość → służba, segment IARU, CB/PMR/SRD/marine/airband.
+- **SWR** — z impedancji rezystancyjnej lub z mocy padającej/odbitej.
+- **Shift przemiennika** — 2 m −600 kHz, 70 cm −7.6 MHz.
+- **Wyszukiwarka globalna** — kody Q, fonetyczny, CW, słownik, loggery, pasma, FT8, miasta.
+- **Filtry kategorii** kodów Q (QR/QS/QT/QU/skróty).
+- **Click-to-copy** — kliknij dowolną częstotliwość, kopiuje się do schowka.
 
 ### PWA / UX
 - **Działa offline** — service worker cache'uje statykę.
@@ -48,25 +53,19 @@ Działa również offline (PWA).
 ## Struktura plików
 
 ```
-ham_radio/www/
-├── index.html                  # cała strona (wszystkie sekcje)
-├── styles.css                  # style (dark mode, print, responsywność)
-├── script.js                   # dane + narzędzia + wyszukiwarka
+ham_radio/
+├── index.html                  # page structure and copy
+├── styles.css                  # dark theme, print, responsive
+├── script.js                   # UI, calculators, search
+├── freq-catalog.js             # IARU / CEPT / ITU frequency catalog
 ├── sw.js                       # service worker (PWA)
-├── manifest.json               # manifest PWA
-├── favicon.svg                 # ikona
-├── robots.txt                  # reguły dla crawlerów
-├── sitemap.xml                 # mapa strony
-├── CONTRIBUTING.md             # jak współtworzyć
-├── README.md                   # ten plik
+├── manifest.json               # PWA manifest
+├── favicon.svg                 # icon
+├── robots.txt
+├── sitemap.xml
+├── CONTRIBUTING.md
+├── README.md
 └── .github/
-    ├── workflows/
-    │   ├── deploy.yml          # auto-deploy na GitHub Pages
-    │   └── validate.yml        # walidacja HTML + JS syntax
-    └── ISSUE_TEMPLATE/
-        ├── klub.yml            # szablon: dodaj klub
-        ├── blad.yml            # szablon: błąd/nieaktualne dane
-        └── feature.yml         # szablon: propozycja funkcji
 ```
 
 ## Uruchomienie lokalne

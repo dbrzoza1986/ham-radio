@@ -60,23 +60,51 @@
                 </button>
                 <ul id="nav-list" class="nav-list">
                     <li><a href="#narzedzia">Narzędzia</a></li>
-                    <li><a href="#kody-q">Kody Q</a></li>
-                    <li><a href="#fonetyczny">Fonetyczny</a></li>
-                    <li><a href="#literowanie">Literowanie PL/NATO</a></li>
-                    <li><a href="#rst-cw">RST & CW</a></li>
-                    <li><a href="#pasma">Pasma</a></li>
-                    <li><a href="#czestotliwosci-pl">Częstotliwości PL</a></li>
-                    <li><a href="#przemienniki">Przemienniki</a></li>
-                    <li><a href="#locator">Locator</a></li>
-                    <li><a href="#dxcc">DXCC / SP</a></li>
-                    <li><a href="#emisje">Emisje</a></li>
-                    <li><a href="#awards">Awards</a></li>
-                    <li><a href="#qrz">QRZ &amp; Log</a></li>
-                    <li><a href="#sprzet">Sprzęt</a></li>
-                    <li><a href="#bhp">BHP</a></li>
-                    <li><a href="#slownik">Słownik</a></li>
-                    <li><a href="#kluby">Kluby</a></li>
-                    <li><a href="#historia">Historia</a></li>
+                    <li>
+                        <details class="nav-group">
+                            <summary>Wiedza</summary>
+                            <ul>
+                                <li><a href="#kody-q">Kody Q</a></li>
+                                <li><a href="#fonetyczny">Fonetyczny</a></li>
+                                <li><a href="#literowanie">Literowanie PL/NATO</a></li>
+                                <li><a href="#rst-cw">RST &amp; CW</a></li>
+                                <li><a href="#slownik">Słownik</a></li>
+                                <li><a href="#historia">Historia</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details class="nav-group">
+                            <summary>Pasma</summary>
+                            <ul>
+                                <li><a href="#pasma">Pasma KF/UKF</a></li>
+                                <li><a href="#czestotliwosci-pl">Częstotliwości PL</a></li>
+                                <li><a href="#przemienniki">Przemienniki</a></li>
+                                <li><a href="#locator">Locator</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details class="nav-group">
+                            <summary>DX</summary>
+                            <ul>
+                                <li><a href="#dxcc">DXCC / SP</a></li>
+                                <li><a href="#emisje">Emisje</a></li>
+                                <li><a href="#awards">Awards</a></li>
+                                <li><a href="#qrz">QRZ &amp; Log</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details class="nav-group">
+                            <summary>Stacja</summary>
+                            <ul>
+                                <li><a href="#sprzet">Sprzęt</a></li>
+                                <li><a href="#bhp">BHP</a></li>
+                                <li><a href="#kluby">Kluby</a></li>
+                            </ul>
+                        </details>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -110,9 +138,9 @@
                     <div id="global-search-results" class="global-search-results" hidden></div>
                 </div>
                 <div class="hero-stats" aria-label="Szybkie statystyki">
-                    <div><strong>50+</strong><span>kodów Q</span></div>
+                    <div><strong id="hero-q-count">50+</strong><span>kodów Q</span></div>
                     <div><strong>26</strong><span>liter ICAO</span></div>
-                    <div><strong>9</strong><span>pasm KF</span></div>
+                    <div><strong id="hero-hf-count">10</strong><span>pasm KF (R1)</span></div>
                     <div><strong>145.500</strong><span>wywołanie FM</span></div>
                 </div>
             </div>
@@ -142,8 +170,11 @@
                             <span class="chip">λ/2</span>
                         </header>
                         <p class="tool-desc">
-                            Wpisz częstotliwość środkową pasma w MHz. Wzór: <code>L = 142,5 / f × k</code>,
-                            gdzie <code>k</code> to współczynnik skrócenia (≈ 0,95 dla przewodu miedzianego w powietrzu).
+                            Wpisz częstotliwość środkową pasma w MHz.
+                            Wzór: <code>L = (c / 2f) × k ≈ 150 / f × k</code> metrów,
+                            gdzie <code>k</code> to współczynnik skrócenia / prędkości fali
+                            (≈ 0,95 dla gołego przewodu w powietrzu — efekt końcowy).
+                            Stała 142,5 już zawiera k≈0,95, więc nie mnoży się jej ponownie przez 0,95.
                         </p>
                         <div class="tool-row">
                             <label>Częstotliwość (MHz)
@@ -154,8 +185,9 @@
                             </label>
                         </div>
                         <div class="tool-result">
-                            <div><span class="label">Całość (dipol)</span><strong id="dip-total">— m</strong></div>
+                            <div><span class="label">Całość (dipol, z k)</span><strong id="dip-total">— m</strong></div>
                             <div><span class="label">Jedno ramię (λ/4)</span><strong id="dip-half">— m</strong></div>
+                            <div><span class="label">λ/2 w próżni (k=1)</span><strong id="dip-free">— m</strong></div>
                             <div><span class="label">λ (pełna)</span><strong id="dip-lambda">— m</strong></div>
                         </div>
                     </article>
@@ -206,8 +238,8 @@
                             i odwrotnie.
                         </p>
                         <div class="tool-row">
-                            <label>Locator (np. JO91ss)
-                                <input id="loc-input" type="text" placeholder="JO91" autocomplete="off" maxlength="8">
+                            <label>Locator (2–8 znaków, np. JO91ss)
+                                <input id="loc-input" type="text" placeholder="JO91ss" autocomplete="off" maxlength="8">
                             </label>
                         </div>
                         <div class="tool-result">
@@ -224,6 +256,7 @@
                         </div>
                         <div class="tool-result">
                             <div><span class="label">Locator (6 znaków)</span><strong id="ll-locator">—</strong></div>
+                            <div><span class="label">Locator (8 znaków)</span><strong id="ll-locator8">—</strong></div>
                         </div>
                     </article>
 
@@ -234,8 +267,8 @@
                             <span class="chip">QTH ↔ QTH</span>
                         </header>
                         <p class="tool-desc">
-                            Wzór haversine. Podaj dwa lokatory Maidenhead, otrzymasz azymut (°) i odległość (km)
-                            po wielkim okręgu (great circle).
+                            Wzór haversine. Podaj dwa lokatory Maidenhead (2–8 znaków).
+                            Azymut powrotny to bearing z DX do Ciebie (wielki okrąg, nie +180°).
                         </p>
                         <div class="tool-row">
                             <label>Locator 1 (Ty)
@@ -255,28 +288,104 @@
                     <!-- ZNAJDŹ PASMO -->
                     <article class="tool-card">
                         <header>
-                            <h3>🔍 Znajdź pasmo</h3>
+                            <h3>Znajdź pasmo</h3>
                             <span class="chip">freq → band</span>
                         </header>
                         <p class="tool-desc">
-                            Wpisz częstotliwość (MHz lub kHz). Wynik: pasmo amatorskie, rodzaj emisji zwyczajowo
-                            stosowanej w tym segmencie oraz Region IARU (zakładamy R1).
+                            Wpisz częstotliwość. Wynik: służba amatorska (IARU R1/R2/R3),
+                            segment emisji oraz sąsiednie służby
+                            (CB CEPT, PMR446, SRD 433/868, morskie VHF, airband, broadcast).
+                            Nakładające się zakresy (np. 70 cm i ISM 433) pokazywane są razem.
+                            Dane edukacyjne — w eterze obowiązuje UKE.
                         </p>
                         <div class="tool-row">
                             <label>Częstotliwość
-                                <input id="fb-freq" type="number" step="0.001" placeholder="14.074">
+                                <input id="fb-freq" type="number" step="0.001" placeholder="14.074" value="14.074">
                             </label>
                             <label>Jednostka
                                 <select id="fb-unit">
                                     <option value="MHz" selected>MHz</option>
                                     <option value="kHz">kHz</option>
+                                    <option value="GHz">GHz</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="tool-row">
+                            <label>Region IARU (dla przydziału amatorskiego)
+                                <select id="fb-region">
+                                    <option value="R1" selected>R1 — Europa / Afryka / PL</option>
+                                    <option value="R2">R2 — Ameryki</option>
+                                    <option value="R3">R3 — Azja / Oceania</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div id="fb-hits" class="fb-hits" aria-live="polite"></div>
+                    </article>
+
+                    <article class="tool-card">
+                        <header>
+                            <h3>Kalkulator SWR (WFS)</h3>
+                            <span class="chip">Z / P</span>
+                        </header>
+                        <p class="tool-desc">
+                            Dla obciążeń rezystancyjnych:
+                            <code>Γ = (ZL − Z0) / (ZL + Z0)</code>,
+                            <code>SWR = (1+|Γ|) / (1−|Γ|)</code>.
+                            Z mocy: <code>SWR = (1+√(Pr/Pf)) / (1−√(Pr/Pf))</code>.
+                            Reaktancja jest pominięta — to ściąga, nie analizator antenowy.
+                        </p>
+                        <div class="tool-row">
+                            <label>Z0 (Ω)
+                                <input id="swr-z0" type="number" step="0.1" min="1" value="50">
+                            </label>
+                            <label>ZL rezystancyjne (Ω)
+                                <input id="swr-zl" type="number" step="0.1" min="0.1" value="75">
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">SWR z impedancji</span><strong id="swr-from-z">—</strong></div>
+                        </div>
+                        <hr class="tool-divider">
+                        <div class="tool-row">
+                            <label>Moc padająca Pf (W)
+                                <input id="swr-pf" type="number" step="0.1" min="0" value="100">
+                            </label>
+                            <label>Moc odbita Pr (W)
+                                <input id="swr-pr" type="number" step="0.1" min="0" value="4">
+                            </label>
+                        </div>
+                        <div class="tool-result">
+                            <div><span class="label">SWR z mocy</span><strong id="swr-from-p">—</strong></div>
+                        </div>
+                    </article>
+
+                    <article class="tool-card">
+                        <header>
+                            <h3>Shift przemiennika</h3>
+                            <span class="chip">−600 kHz / −7.6 MHz</span>
+                        </header>
+                        <p class="tool-desc">
+                            Z częstotliwości <strong>wyjścia</strong> (tego, na czym słuchasz)
+                            wylicz wejście. IARU R1 / Polska: 2 m shift −600 kHz,
+                            70 cm shift −7.6 MHz. Przed programowaniem HT sprawdź
+                            <a href="https://przemienniki.net/" target="_blank" rel="noopener">przemienniki.net</a>.
+                        </p>
+                        <div class="tool-row">
+                            <label>Wyjście (MHz)
+                                <input id="rep-out" type="number" step="0.0125" min="100" max="500" value="145.600">
+                            </label>
+                            <label>Pasmo
+                                <select id="rep-band">
+                                    <option value="auto" selected>Auto</option>
+                                    <option value="2m">2 m (−600 kHz)</option>
+                                    <option value="70cm">70 cm (−7.6 MHz)</option>
                                 </select>
                             </label>
                         </div>
                         <div class="tool-result">
-                            <div><span class="label">Pasmo</span><strong id="fb-band">—</strong></div>
-                            <div><span class="label">Segment / emisje</span><strong id="fb-segment">—</strong></div>
-                            <div><span class="label">Uwagi</span><strong id="fb-notes">—</strong></div>
+                            <div><span class="label">Wejście</span><strong id="rep-in">—</strong></div>
+                            <div><span class="label">Shift</span><strong id="rep-shift">—</strong></div>
+                            <div><span class="label">Uwagi</span><strong id="rep-notes">—</strong></div>
                         </div>
                     </article>
                 </div>
@@ -468,29 +577,29 @@
                 <div class="section-head">
                     <h2>Pasma KF / VHF / UHF</h2>
                     <p class="section-sub">
-                        Podział widma radiowego wykorzystywany w służbie amatorskiej. Poniższe zakresy są zgodne
-                        z <strong>IARU Region 1</strong> i polskim planem zagospodarowania pasm (PZK).
+                        Podział widma radiowego wykorzystywany w służbie amatorskiej. Zakresy w tabelach to
+                        <strong>IARU Region 1</strong> (Polska). Segmenty emisji w narzędziu „Znajdź pasmo”
+                        pochodzą z bandplanu IARU R1 HF (16 Oct 2020) i VHF Managers Handbook.
+                        W sprawach legalnych kieruj się <strong>UKE / KTPC</strong>.
                     </p>
                 </div>
 
                 <div class="bands-grid">
+                    <article class="band-card">
+                        <header><h3>LF / MF</h3><span class="chip">poniżej 3 MHz</span></header>
+                        <p>Pasma długie i średnie: bardzo wąskie, głównie CW i cyfrowe.</p>
+                        <table class="data-table compact">
+                            <thead><tr><th>Pasmo</th><th>Zakres (R1)</th><th>Uwagi</th></tr></thead>
+                            <tbody id="bands-lfmf-body"></tbody>
+                        </table>
+                    </article>
+
                     <article class="band-card band-hf">
                         <header><h3>KF — Fale krótkie (HF)</h3><span class="chip">3 – 30 MHz</span></header>
-                        <p>Łączności dalekodystansowe (DX) dzięki odbiciu fal od jonosfery. Pasmo klasyczne dla radioamatorów.</p>
+                        <p>Łączności dalekodystansowe (DX) dzięki odbiciu fal od jonosfery. 160 m jest MF w nomenklaturze ITU, ale operatorzy liczą je do KF.</p>
                         <table class="data-table compact">
-                            <thead><tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr></thead>
-                            <tbody>
-                                <tr><td>160 m</td><td>1.810 – 2.000 MHz</td><td>„Top band", nocne DX</td></tr>
-                                <tr><td>80 m</td><td>3.500 – 3.800 MHz</td><td>Łączności regionalne, SN0HQ</td></tr>
-                                <tr><td>60 m</td><td>5.351,5 – 5.366,5 MHz</td><td>Pasmo ograniczone</td></tr>
-                                <tr><td>40 m</td><td>7.000 – 7.200 MHz</td><td>DX dzień/noc</td></tr>
-                                <tr><td>30 m</td><td>10.100 – 10.150 MHz</td><td>Tylko CW / cyfrowe · WARC</td></tr>
-                                <tr><td>20 m</td><td>14.000 – 14.350 MHz</td><td>Król pasm DX-owych</td></tr>
-                                <tr><td>17 m</td><td>18.068 – 18.168 MHz</td><td>WARC, bez zawodów</td></tr>
-                                <tr><td>15 m</td><td>21.000 – 21.450 MHz</td><td>Propagacja w słońcu</td></tr>
-                                <tr><td>12 m</td><td>24.890 – 24.990 MHz</td><td>WARC</td></tr>
-                                <tr><td>10 m</td><td>28.000 – 29.700 MHz</td><td>Sporadic-E, FM simplex</td></tr>
-                            </tbody>
+                            <thead><tr><th>Pasmo</th><th>Zakres (R1)</th><th>Uwagi</th></tr></thead>
+                            <tbody id="bands-hf-body"></tbody>
                         </table>
                     </article>
 
@@ -498,25 +607,35 @@
                         <header><h3>VHF — Fale ultrakrótkie</h3><span class="chip">30 – 300 MHz</span></header>
                         <p>Łączności lokalne i regionalne, przemienniki FM, SSB, satelity, meteor scatter, aurora, tropo.</p>
                         <table class="data-table compact">
-                            <thead><tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr></thead>
-                            <tbody>
-                                <tr><td>6 m</td><td>50.000 – 52.000 MHz</td><td>„Magic band", Es</td></tr>
-                                <tr><td>4 m</td><td>70.000 – 70.300 MHz</td><td>W PL pozwolenie indywidualne</td></tr>
-                                <tr><td>2 m</td><td>144.000 – 146.000 MHz</td><td>Najpopularniejsze VHF</td></tr>
-                            </tbody>
+                            <thead><tr><th>Pasmo</th><th>Zakres (R1)</th><th>Uwagi</th></tr></thead>
+                            <tbody id="bands-vhf-body"></tbody>
                         </table>
                     </article>
 
                     <article class="band-card band-uhf">
                         <header><h3>UHF — Fale decymetrowe</h3><span class="chip">300 – 3000 MHz</span></header>
-                        <p>Przemienniki, DMR/D-STAR/C4FM, komunikacja miejska, łączności satelitarne, ATV.</p>
+                        <p>Przemienniki, DMR/D-STAR/C4FM, komunikacja miejska, satelity, ATV. 70 cm w PL jest współdzielone z innymi służbami.</p>
                         <table class="data-table compact">
-                            <thead><tr><th>Pasmo</th><th>Zakres</th><th>Uwagi</th></tr></thead>
-                            <tbody>
-                                <tr><td>70 cm</td><td>430.000 – 440.000 MHz</td><td>FM, DMR, D-STAR</td></tr>
-                                <tr><td>23 cm</td><td>1240 – 1300 MHz</td><td>ATV, satelity</td></tr>
-                                <tr><td>13 cm</td><td>2300 – 2450 MHz</td><td>Mikrofale amatorskie</td></tr>
-                            </tbody>
+                            <thead><tr><th>Pasmo</th><th>Zakres (R1)</th><th>Uwagi</th></tr></thead>
+                            <tbody id="bands-uhf-body"></tbody>
+                        </table>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>SHF — Mikrofale</h3><span class="chip">powyżej 3 GHz</span></header>
+                        <p>Eksperymenty wąsko- i szerokopasmowe. 3,4 GHz w części krajów CEPT jest wycofywane pod 5G — sprawdź aktualną KTPC.</p>
+                        <table class="data-table compact">
+                            <thead><tr><th>Pasmo</th><th>Zakres (R1)</th><th>Uwagi</th></tr></thead>
+                            <tbody id="bands-shf-body"></tbody>
+                        </table>
+                    </article>
+
+                    <article class="band-card">
+                        <header><h3>Tylko IARU Region 2</h3><span class="chip">Ameryki</span></header>
+                        <p>Te pasma amatorskie nie obowiązują w Polsce. W „Znajdź pasmo” ustaw region R2, żeby je rozpoznać.</p>
+                        <table class="data-table compact">
+                            <thead><tr><th>Pasmo</th><th>Zakres (R2)</th><th>Uwagi</th></tr></thead>
+                            <tbody id="bands-r2-body"></tbody>
                         </table>
                     </article>
                 </div>
@@ -675,16 +794,7 @@
 
                     <article class="freq-card">
                         <h3>🌐 Mody cyfrowe (FT8, FT4, PSK)</h3>
-                        <ul class="freq-list">
-                            <li><span class="freq">3.573 MHz</span><span class="desc">FT8 — 80 m</span></li>
-                            <li><span class="freq">7.074 MHz</span><span class="desc">FT8 — 40 m</span></li>
-                            <li><span class="freq">10.136 MHz</span><span class="desc">FT8 — 30 m</span></li>
-                            <li><span class="freq">14.074 MHz</span><span class="desc">FT8 — 20 m</span></li>
-                            <li><span class="freq">21.074 MHz</span><span class="desc">FT8 — 15 m</span></li>
-                            <li><span class="freq">28.074 MHz</span><span class="desc">FT8 — 10 m</span></li>
-                            <li><span class="freq">50.313 MHz</span><span class="desc">FT8 — 6 m</span></li>
-                            <li><span class="freq">144.174 MHz</span><span class="desc">FT8 — 2 m</span></li>
-                        </ul>
+                        <ul class="freq-list" id="ft8-list"></ul>
                     </article>
                 </div>
             </div>
@@ -786,22 +896,10 @@
                     <article class="band-card">
                         <header><h3>Lokatory polskich miast</h3><span class="chip">PL</span></header>
                         <table class="data-table compact">
-                            <thead><tr><th>Miasto</th><th>Locator</th></tr></thead>
-                            <tbody>
-                                <tr><td>Warszawa</td><td><code>KO02mf</code></td></tr>
-                                <tr><td>Kraków</td><td><code>KN09</code></td></tr>
-                                <tr><td>Gdańsk</td><td><code>JO94</code></td></tr>
-                                <tr><td>Wrocław</td><td><code>JO81</code></td></tr>
-                                <tr><td>Poznań</td><td><code>JO82</code></td></tr>
-                                <tr><td>Bydgoszcz</td><td><code>JO93</code></td></tr>
-                                <tr><td>Łódź</td><td><code>JO91</code></td></tr>
-                                <tr><td>Szczecin</td><td><code>JO73</code></td></tr>
-                                <tr><td>Katowice</td><td><code>JO90</code></td></tr>
-                                <tr><td>Białystok</td><td><code>KO13</code></td></tr>
-                                <tr><td>Lublin</td><td><code>KO11</code></td></tr>
-                                <tr><td>Rzeszów</td><td><code>KN09</code></td></tr>
-                            </tbody>
+                            <thead><tr><th>Miasto</th><th>Locator (4 / 6 znaków)</th></tr></thead>
+                            <tbody id="locator-cities-body"></tbody>
                         </table>
+                        <p class="small muted">Wyliczone ze współrzędnych WGS-84 środka miasta (Maidenhead). Kraków to JO90, nie KN09.</p>
                     </article>
 
                     <article class="band-card">
@@ -816,8 +914,8 @@
                     </article>
                 </div>
                 <p class="note">
-                    🧮 W sesji 2 planowany jest interaktywny konwerter locator ↔ lat/lon oraz kalkulator azymutu
-                    i odległości między dwoma lokatorami.
+                    Konwerter locator ↔ współrzędne oraz azymut między dwoma QTH są w sekcji
+                    <a href="#narzedzia">Narzędzia</a> (Maidenhead 2–8 znaków).
                 </p>
             </div>
         </section>
@@ -1318,6 +1416,11 @@
                     <article class="club-card"><div class="club-call">SP2PIK</div><h3>Gdański Klub Krótkofalowców</h3><p>Trójmiasto — wyprawy DX, regaty, Bałtyk.</p><ul class="club-meta"><li><strong>Miasto:</strong> Gdańsk</li><li><strong>OT:</strong> OT-14</li></ul></article>
                     <article class="club-card"><div class="club-call">SP9KRT</div><h3>Krakowski Klub Krótkofalowców</h3><p>Małopolska — SOTA (Tatry, Beskidy), KF i UKF.</p><ul class="club-meta"><li><strong>Miasto:</strong> Kraków</li><li><strong>OT:</strong> OT-12</li></ul></article>
                 </div>
+                <p class="note">
+                    Numery OT przy klubach są orientacyjne — przed kontaktem potwierdź dane na
+                    <a href="https://pzk.org.pl" target="_blank" rel="noopener">pzk.org.pl</a>.
+                    Wrocław i Poznań nie powinny dzielić tego samego OT bez weryfikacji.
+                </p>
 
                 <div class="info-callout">
                     <h3>Jak zostać krótkofalowcem?</h3>
@@ -1370,7 +1473,9 @@
             <p>© <span id="year"></span> · Kompendium krótkofalarstwa — projekt edukacyjny</p>
             <p class="muted small">
                 Dane mają charakter informacyjny. W sprawach regulacyjnych kieruj się aktualnymi dokumentami
-                <strong>UKE</strong>, <strong>PZK</strong> oraz <strong>IARU Region 1</strong>.
+                <strong>UKE</strong>, <strong>PZK</strong> oraz bandplanami <strong>IARU</strong>
+                (R1 HF z 16.10.2020, VHF Managers Handbook). CB: ECC (11)03. PMR446: ECC (15)05.
+                SRD: ERC/REC 70-03. Marine: ITU RR Appendix 18. Airband: ICAO Annex 10 Vol. V.
             </p>
         </div>
     </footer>
@@ -1380,6 +1485,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="currentColor"/></svg>
     </button>
 
+    <script src="freq-catalog.js"></script>
     <script src="script.js"></script>
     <script>
         // Rejestracja Service Workera (PWA / offline)
