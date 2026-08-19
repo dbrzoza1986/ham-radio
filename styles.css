@@ -429,6 +429,38 @@ p { margin: 0 0 1em; }
 .freq-card.alert .freq-list .freq { color: #ff9aae; }
 .freq-list .desc { color: var(--text-muted); font-size: 0.9rem; text-align: right; }
 
+.listen-hint {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin: -0.4rem 0 0.9rem;
+    line-height: 1.45;
+}
+.listen-list li {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+}
+.listen-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8rem;
+}
+.listen-mode {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+.listen-list .desc {
+    text-align: left;
+    font-size: 0.86rem;
+    line-height: 1.4;
+}
+.listen-list .desc strong { color: var(--text); font-weight: 600; }
+
 /* ---------- CLUBS ---------- */
 .clubs-grid {
     display: grid; gap: 1.2rem;
@@ -481,6 +513,8 @@ p { margin: 0 0 1em; }
 .info-callout h3 { color: var(--accent-3); margin-bottom: 0.7rem; }
 .info-callout ol { margin: 0; padding-left: 1.2rem; color: var(--text-muted); }
 .info-callout ol li { padding: 0.25rem 0; }
+.info-callout ul { margin: 0; padding-left: 1.2rem; color: var(--text-muted); }
+.info-callout ul li { padding: 0.25rem 0; }
 .info-callout strong { color: var(--text); }
 
 /* ---------- CTA ---------- */

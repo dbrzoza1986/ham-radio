@@ -18,6 +18,10 @@ Działa również offline (PWA).
   SRD 433/868, ISM 2.4 GHz, marine VHF, airband, FM/MW/LW broadcast.
 - **Częstotliwości w Polsce** — wywoławcze, alarmowe (IARU R1 Emergency CoA), simpleks,
   przemienniki, sieci cyfrowe (DMR TG 260, D-STAR, Echolink), CB, PMR446, FT8 (lista WSJT-X).
+- **Nasłuch służb** — receive-only starter kit: amateur calling/repeaters, CB/PMR, marine
+  (ITU ch 16 + Polish Rescue Radio MSI), airband AM (121.500 + AIP examples), DCF77,
+  NAVTEX, analogue Police VHF FM scan ranges (164.525–168.475 and 172–174 MHz, no TETRA),
+  plus a skip list (TETRA/EDACS/cellular/private PMR). Band edges, not a per-station channel dump.
 - **Locator Maidenhead** — budowa + tabela polskich miast (liczona ze współrzędnych).
 - **DXCC** — prefiksy polskie + popularne kraje + okręgi wywoławcze SP1–SP9.
 - **Emisje** — CW, SSB, FM, AM, RTTY, PSK31, FT8/FT4, JS8, VARA, DMR, D-STAR, C4FM.
@@ -37,7 +41,7 @@ Działa również offline (PWA).
 - **Znajdź pasmo** — częstotliwość → służba, segment IARU, CB/PMR/SRD/marine/airband.
 - **SWR** — z impedancji rezystancyjnej lub z mocy padającej/odbitej.
 - **Shift przemiennika** — 2 m −600 kHz, 70 cm −7.6 MHz.
-- **Wyszukiwarka globalna** — kody Q, fonetyczny, CW, słownik, loggery, pasma, FT8, miasta.
+- **Wyszukiwarka globalna** — kody Q, fonetyczny, CW, słownik, loggery, pasma, FT8, nasłuch, miasta.
 - **Filtry kategorii** kodów Q (QR/QS/QT/QU/skróty).
 - **Click-to-copy** — kliknij dowolną częstotliwość, kopiuje się do schowka.
 

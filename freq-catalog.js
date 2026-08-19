@@ -13,6 +13,16 @@
    - ITU Radio Regulations Appendix 18: marine VHF, ch 16 = 156.800 MHz
    - ICAO Annex 10 Vol. V: air-ground 117.975–137 MHz, emergency 121.500 MHz
    - ITU Region 1 FM broadcasting 87.5–108.0 MHz
+   - Polish Rescue Radio (SPL), Maritime Office Gdynia: MSI on MF 2714 kHz after 2182 kHz; VHF ch 5/61/62 after ch 16
+     https://www.umgdy.gov.pl/en/marine-safety/vts-zatoka-gdanska-en/polish-rescue-radio/
+   - PKE art. 145: receive-only radio equipment does not require a radio permit
+   - KGP Ordinance No. 22 of 14 July 2020 (Dz.Urz. KGP 2020 poz. 38): Police radio
+     types include analogue FM (optional CTCSS), DMR and TETRA — frequencies are
+     MSWiA assignments, not the public UKE amateur/CB tables
+   - Commonly reported PL analogue Police VHF scan ranges (hobby/press, not an
+     official channel plan): 164.525–168.475 MHz and 172.000–174.000 MHz, NFM
+   - DCF77 77.5 kHz (PTB Mainflingen)
+   - NAVTEX 518 kHz international (IMO); Poland has no NAVTEX transmitter — Baltic covered by neighbouring stations
    - Poland 4 m: Dz.U. 2017 poz. 920 — 70.000–70.300 MHz, 20 W e.i.r.p.
    - Poland 6 m: KTPC POL.30 — 50–52 MHz, max 100 W e.i.r.p., no F3E (FM)
    - WSJT-X default FT8 dial frequencies (FrequencyList.cpp)
@@ -55,6 +65,376 @@ const FT8_DIALS = [
     { khz: 70154, band: '4 m' },
     { khz: 144174, band: '2 m' },
     { khz: 432174, band: '70 cm' }
+];
+
+/* Receive-only listening spots for Poland / IARU R1.
+   UI strings (titlePl, descPl) match the Polish page. Sources stay in English.
+   legal: 'rx-ok' = public/amateur/broadcast/safety calling suitable for hobby RX;
+          'skip' = encrypted, cellular, or private professional traffic — do not hunt. */
+const LISTEN_GROUP_ORDER = ['starter', 'amateur', 'license-free', 'marine', 'air', 'police-fm', 'utility', 'skip'];
+
+const LISTEN_GROUP_PL = {
+    starter: 'Zacznij od tych',
+    amateur: 'Służba amatorska',
+    'license-free': 'CB i PMR446 (bez pozwolenia na nadawanie)',
+    marine: 'Służba morska i żegluga śródlądowa',
+    air: 'Pasmo lotnicze VHF (AM)',
+    'police-fm': 'Policja — analog FM (bez TETRA)',
+    utility: 'Czas, NAVTEX, radiodyfuzja',
+    skip: 'Nie poluj na te zakresy'
+};
+
+const LISTEN_GROUP_HINT_PL = {
+    starter: 'Najwyższa szansa, że coś usłyszysz bez specjalistycznego dekodera.',
+    amateur: 'Odbiór amatorski nie wymaga pozwolenia. Nadawanie — tak (znak UKE / CEPT).',
+    'license-free': 'CB CEPT i PMR446 są ogólnie dozwolone w UE na warunkach ECC.',
+    marine: 'Nasłuch głosu na kanałach niebezpieczeństwa i MSI. Nie nadawaj bez świadectwa SRC i pozwolenia.',
+    air: 'Emisja AM, krok 8,33 kHz. ATIS/VOLMET to komunikaty publiczne — TWR/APP zmieniają się; sprawdź AIP PANSA.',
+    'police-fm': 'Tylko analog NFM. TETRA (380–395 MHz) pomijamy — szyfr. Przydziały MSWiA nie są w UKE; poniżej zakresy skanera, nie plan komendy.',
+    utility: 'Sygnały czasu i bezpieczeństwo żeglugi (NAVTEX) oraz radio UKF/ŚR.',
+    skip: 'Służby zamknięte, komórka i szyfr. Samo posiadanie odbiornika RX nie zwalnia z tajemnicy korespondencji.'
+};
+
+const LISTEN_SPOTS = [
+    /* ---- Starter kit (also listed again in their service group) ---- */
+    {
+        group: 'starter', freq: '145.500 MHz', mode: 'FM',
+        titlePl: 'Wywołanie 2 m',
+        descPl: 'Pierwszy kanał w mieście. Po CQ stacje schodzą na simpleks.',
+        source: 'IARU R1 VHF band plan — FM calling'
+    },
+    {
+        group: 'starter', freq: '145.600–145.7875 MHz', mode: 'FM',
+        titlePl: 'Wyjścia przemienników 2 m',
+        descPl: 'Skanuj wyjścia (shift −600 kHz). Więcej ruchu niż na simpleksie.',
+        source: 'IARU R1 / PK-UKF 2 m repeater outputs'
+    },
+    {
+        group: 'starter', freq: '27.185 MHz', mode: 'FM',
+        titlePl: 'CB kanał 19',
+        descPl: 'Kanał drogowy / TIR. W dzień często obłożony przy trasach.',
+        source: 'CEPT CB; Polish road-channel tradition'
+    },
+    {
+        group: 'starter', freq: '446.00625 MHz', mode: 'FM',
+        titlePl: 'PMR446 kanał 1',
+        descPl: 'Turystyka i góry. Zasięg lokalny, antena integralna.',
+        source: 'ECC Decision (15)05 — analogue ch 1'
+    },
+    {
+        group: 'starter', freq: '156.800 MHz', mode: 'FM',
+        titlePl: 'Morski kanał 16',
+        descPl: 'Wywołanie i niebezpieczeństwo. Po zapowiedzi QSY na kanał roboczy.',
+        source: 'ITU RR Appendix 18 channel 16'
+    },
+    {
+        group: 'starter', freq: '121.500 MHz', mode: 'AM',
+        titlePl: 'Lotniczy guard',
+        descPl: 'Międzynarodowy kanał awaryjny. Cichy, dopóki nie ma zagrożenia — i tak warto go znać.',
+        source: 'ICAO Annex 10 Vol. V — 121.500 MHz'
+    },
+    {
+        group: 'starter', freq: '14.074 MHz', mode: 'USB / FT8',
+        titlePl: 'FT8 20 m',
+        descPl: 'Prawie zawsze „żywe” przy otwartym 20 m. Potrzebny dekoder (WSJT-X), nie głos.',
+        source: 'WSJT-X default FT8 dial'
+    },
+    {
+        group: 'starter', freq: '87.5–108.0 MHz', mode: 'WFM',
+        titlePl: 'Radio UKF',
+        descPl: 'Test odbiornika i anteny. ITU Region 1 broadcasting.',
+        source: 'ITU Region 1 FM broadcasting'
+    },
+
+    /* ---- Amateur ---- */
+    {
+        group: 'amateur', freq: '145.500 MHz', mode: 'FM',
+        titlePl: 'Wywołanie FM 2 m',
+        descPl: 'S50. Po nawiązaniu łączności zejdź na inny simpleks.',
+        source: 'IARU R1 VHF — 145.500 FM calling'
+    },
+    {
+        group: 'amateur', freq: '433.500 MHz', mode: 'FM',
+        titlePl: 'Wywołanie FM 70 cm',
+        descPl: 'Mniejszy zasięg niż 2 m, ale popularny w miastach.',
+        source: 'IARU R1 UHF — 433.500 FM calling'
+    },
+    {
+        group: 'amateur', freq: '144.300 MHz', mode: 'USB',
+        titlePl: 'Wywołanie SSB 2 m',
+        descPl: 'Tropo, MS, lot balonowy. Kierunkowa antena pomaga.',
+        source: 'IARU R1 VHF — 144.300 SSB centre of activity'
+    },
+    {
+        group: 'amateur', freq: '432.200 MHz', mode: 'USB',
+        titlePl: 'Wywołanie SSB 70 cm',
+        descPl: 'Słaby sygnał — USB i wąski filtr.',
+        source: 'IARU R1 UHF — 432.200 SSB centre of activity'
+    },
+    {
+        group: 'amateur', freq: '144.800 MHz', mode: 'AFSK / APRS',
+        titlePl: 'APRS 2 m',
+        descPl: 'Pakiety pozycji, nie głos. RTL-SDR + direwolf / APRSIS32.',
+        source: 'IARU R1 VHF — 144.800 APRS'
+    },
+    {
+        group: 'amateur', freq: '144.050 MHz', mode: 'CW',
+        titlePl: 'Wywołanie telegrafia 2 m',
+        descPl: 'Wąski filtr CW. Mało ruchu, za to DX UKF.',
+        source: 'IARU R1 VHF — 144.050 telegraphy calling'
+    },
+    {
+        group: 'amateur', freq: '144.400–144.490 MHz', mode: 'beacon',
+        titlePl: 'Bakony 2 m',
+        descPl: 'Segment bakonów (exclusive). Test propagacji UKF.',
+        source: 'IARU R1 VHF — beacons exclusive'
+    },
+    {
+        group: 'amateur', freq: '3.760 MHz', mode: 'LSB',
+        titlePl: '80 m Emergency CoA / wieczór',
+        descPl: 'Wieczorny ruch krajowy SSB + IARU R1 emergency centre of activity.',
+        source: 'IARU R1 HF band plan — 3760 kHz Emergency CoA'
+    },
+    {
+        group: 'amateur', freq: '7.090 MHz', mode: 'LSB',
+        titlePl: '40 m SSB QRP CoA',
+        descPl: 'Dzień i wieczór. Centre of activity QRP SSB, nie wyłączny kanał.',
+        source: 'IARU R1 HF band plan — 7090 kHz SSB QRP CoA'
+    },
+    {
+        group: 'amateur', freq: '14.300 MHz', mode: 'USB',
+        titlePl: '20 m Global Emergency CoA',
+        descPl: 'Dzienny DX SSB wokół 14.2–14.35. 14.300 to globalne centrum alarmowe IARU.',
+        source: 'IARU R1 HF band plan — 14300 kHz Global Emergency CoA'
+    },
+    {
+        group: 'amateur', freq: '50.110 / 50.200 MHz', mode: 'USB',
+        titlePl: '6 m DX / wywołanie',
+        descPl: 'Sezon Es. W Polsce brak FM (KTPC POL.30).',
+        source: 'IARU R1 50 MHz; KTPC POL.30 (no F3E in PL)'
+    },
+    {
+        group: 'amateur', freq: '70.200 MHz', mode: 'USB',
+        titlePl: '4 m wywołanie SSB/CW',
+        descPl: 'Polska: 70.000–70.300 MHz, 20 W e.i.r.p. (Dz.U. 2017 poz. 920).',
+        source: 'IARU R1 70 MHz — 70.200 calling; Dz.U. 2017 poz. 920'
+    },
+    {
+        group: 'amateur', freq: '7.074 / 14.074 MHz', mode: 'USB / FT8',
+        titlePl: 'FT8 40 m i 20 m',
+        descPl: 'Pełna lista diali WSJT-X jest w karcie „Mody cyfrowe” powyżej.',
+        source: 'WSJT-X FrequencyList.cpp defaults'
+    },
+
+    /* ---- CB / PMR ---- */
+    {
+        group: 'license-free', freq: '27.065 MHz', mode: 'AM/FM',
+        titlePl: 'CB kanał 9',
+        descPl: 'Tradycyjny kanał ratunkowy CB. Cichy, dopóki nie ma wezwania.',
+        source: 'CEPT CB; emergency-channel tradition'
+    },
+    {
+        group: 'license-free', freq: '27.085 MHz', mode: 'AM/FM',
+        titlePl: 'CB kanał 11',
+        descPl: 'Wywołanie ogólne CB.',
+        source: 'CEPT CB calling-channel tradition'
+    },
+    {
+        group: 'license-free', freq: '27.185 MHz', mode: 'FM',
+        titlePl: 'CB kanał 19',
+        descPl: 'Drogowy / TIR — najpewniejszy nasłuch CB w PL.',
+        source: 'CEPT CB; Polish road-channel tradition'
+    },
+    {
+        group: 'license-free', freq: '26.960–27.410 MHz', mode: 'FM/AM',
+        titlePl: 'Całe CB CEPT',
+        descPl: '40 kanałów co 10 kHz. Skanuj, gdy 19 milczy.',
+        source: 'ECC Decision (11)03'
+    },
+    {
+        group: 'license-free', freq: '446.00625 MHz', mode: 'FM',
+        titlePl: 'PMR446 kanał 1',
+        descPl: 'De facto turystyczny. 16 kanałów analogowych do 446.19375 MHz.',
+        source: 'ECC Decision (15)05'
+    },
+
+    /* ---- Marine ---- */
+    {
+        group: 'marine', freq: '156.800 MHz', mode: 'FM',
+        titlePl: 'Kanał 16 — distress / calling',
+        descPl: 'Simpleks. Polish Rescue Radio zapowiada tu komunikaty MSI, potem QSY.',
+        source: 'ITU RR Appendix 18 ch 16; Polish Rescue Radio (SPL)'
+    },
+    {
+        group: 'marine', freq: '156.300 MHz', mode: 'FM',
+        titlePl: 'Kanał 6 — inter-ship / SAR',
+        descPl: 'Łączność między jednostkami i na miejscu akcji SAR.',
+        source: 'ITU RR Appendix 18 ch 6'
+    },
+    {
+        group: 'marine', freq: '156.500 MHz', mode: 'FM',
+        titlePl: 'Kanał 10 — statek–statek',
+        descPl: 'Często używany na śródlądziu (praktyka CEVNI). Potwierdź lokalne obwieszczenia.',
+        source: 'ITU RR Appendix 18 ch 10; inland VHF practice'
+    },
+    {
+        group: 'marine', freq: '156.650 MHz', mode: 'FM',
+        titlePl: 'Kanał 13 — mostek–mostek',
+        descPl: 'Bezpieczeństwo żeglugi, manewry w porcie.',
+        source: 'ITU RR Appendix 18 ch 13'
+    },
+    {
+        group: 'marine', freq: '160.850 / 160.675 / 160.725 MHz', mode: 'FM',
+        titlePl: 'MSI z brzegu (ch 5 / 61 / 62)',
+        descPl: 'Kanały dupleksowe: nasłuchuj częstotliwości nadawania stacji brzegowej, nie statkowej. Który kanał — zależy od radiostacji; publikacje nautyczne.',
+        source: 'ITU RR App. 18 ch 5/61/62 coast TX; UM Gdynia Polish Rescue Radio'
+    },
+    {
+        group: 'marine', freq: '2182 kHz', mode: 'USB / AM',
+        titlePl: 'MF distress / wywołanie',
+        descPl: 'Międzynarodowa częstotliwość niebezpieczeństwa MF. SPL zapowiada tu komunikaty, potem QSY na roboczą.',
+        source: 'ITU RR MF distress 2182 kHz; Polish Rescue Radio'
+    },
+    {
+        group: 'marine', freq: '2714 kHz', mode: 'USB',
+        titlePl: 'Polish Rescue Radio — MSI MF',
+        descPl: 'Komunikaty nawigacyjne / pogoda / lód po zapowiedzi na 2182 kHz. Starsze źródła podawały 2591 kHz — aktualny opis UM Gdynia: 2714 kHz. Weryfikuj w publikacjach nautycznych.',
+        source: 'UM Gdynia Polish Rescue Radio (SPL) — 2714 kHz after 2182 kHz'
+    },
+    {
+        group: 'marine', freq: '156.525 MHz', mode: 'DSC',
+        titlePl: 'Kanał 70 DSC',
+        descPl: 'Tylko wywołanie cyfrowe, nie głos. Krótkie trzaski — do nasłuchu SSB/FM nieprzydatne.',
+        source: 'ITU RR Appendix 18 ch 70'
+    },
+    {
+        group: 'marine', freq: '161.975 / 162.025 MHz', mode: 'AIS',
+        titlePl: 'AIS1 / AIS2',
+        descPl: 'Pozycje statków, nie głos. RTL-SDR + aisdeco / OpenCPN.',
+        source: 'ITU RR Appendix 18 AIS 1 and AIS 2'
+    },
+
+    /* ---- Air ---- */
+    {
+        group: 'air', freq: '121.500 MHz', mode: 'AM',
+        titlePl: 'Emergency / guard',
+        descPl: 'Nasłuch awaryjny. Nigdy nie nadawaj „dla testu”.',
+        source: 'ICAO Annex 10 Vol. V'
+    },
+    {
+        group: 'air', freq: '123.100 MHz', mode: 'AM',
+        titlePl: 'SAR on-scene',
+        descPl: 'Zapasowa częstotliwość SAR powietrze–ziemia. Ruch tylko przy akcji.',
+        source: 'ICAO / GMDSS aeronautical SAR 123.1 MHz'
+    },
+    {
+        group: 'air', freq: '117.975–137.000 MHz', mode: 'AM',
+        titlePl: 'Całe pasmo lotnicze VHF',
+        descPl: 'Skaner AM, krok 8,33 kHz (nie 25 kHz). Najwięcej ruchu przy lotnisku.',
+        source: 'ICAO Annex 10 Vol. V; EU 8.33 kHz channel spacing'
+    },
+    {
+        group: 'air', freq: '120.455 / 123.430 MHz', mode: 'AM',
+        titlePl: 'EPWA ATIS ARR / DEP',
+        descPl: 'Komunikaty lotniskowe Chopina (przykład). Częstotliwości się zmieniają — sprawdź aktualny AIP PANSA.',
+        source: 'AIP Poland AD 2 EPWA (verify before use); public ATIS'
+    },
+    {
+        group: 'air', freq: '127.600 MHz', mode: 'AM',
+        titlePl: 'Warszawa VOLMET',
+        descPl: 'Cykliczna pogoda lotnicza. Weryfikuj w AIP.',
+        source: 'AIP Poland / published EPWA COM list (verify)'
+    },
+    {
+        group: 'air', freq: '118.305 MHz', mode: 'AM',
+        titlePl: 'EPWA Tower (przykład)',
+        descPl: 'Wieża Okęcia. Tylko odbiór; nadawanie wymaga świadectwa lotniczego i pozwolenia.',
+        source: 'Published EPWA TWR; verify AIP PANSA'
+    },
+
+    /* ---- Utility / broadcast ---- */
+    {
+        group: 'utility', freq: '77.5 kHz', mode: 'AM / time code',
+        titlePl: 'DCF77 — czas legalny DE',
+        descPl: 'Ciągły nośnik z Mainflingen. Słyszalny w całej Polsce na LW; zegary radiowe.',
+        source: 'PTB DCF77 77.5 kHz'
+    },
+    {
+        group: 'utility', freq: '518 kHz', mode: 'NAVTEX / SITOR-B',
+        titlePl: 'NAVTEX międzynarodowy',
+        descPl: 'Angielskie MSI, 100 baud FEC. Polska nie ma nadajnika NAVTEX — Bałtyk pokrywają m.in. Gislövshammar (J) i Pinneberg.',
+        source: 'IMO NAVTEX 518 kHz; IHO WWNWS Baltic coverage (no PL transmitter)'
+    },
+    {
+        group: 'utility', freq: '490 kHz', mode: 'NAVTEX',
+        titlePl: 'NAVTEX język krajowy',
+        descPl: 'Narodowe komunikaty NAVTEX (nie zawsze angielski).',
+        source: 'IMO NAVTEX national frequency 490 kHz'
+    },
+    {
+        group: 'utility', freq: '87.5–108.0 MHz', mode: 'WFM',
+        titlePl: 'UKF-FM broadcasting',
+        descPl: 'Lokalne rozgłośnie. Dobre do kalibracji skanera.',
+        source: 'ITU Region 1 87.5–108 MHz'
+    },
+    {
+        group: 'utility', freq: '526.5–1606.5 kHz', mode: 'AM',
+        titlePl: 'Fale średnie',
+        descPl: 'Krok 9 kHz w Regionie 1. W PL mało stacji krajowych; wieczorem DX europejski.',
+        source: 'ITU MW broadcasting'
+    },
+    {
+        group: 'utility', freq: '5.9–26.1 MHz', mode: 'AM / DRM',
+        titlePl: 'Pasma radiofonii KF',
+        descPl: 'Rozgłośnie międzynarodowe (siatka HFCC). Rozkłady godzinowe się zmieniają.',
+        source: 'ITU HF broadcasting allocations / HFCC schedules'
+    },
+
+    /* ---- Police analogue FM (not TETRA) ---- */
+    {
+        group: 'police-fm', freq: '164.525–168.475 MHz', mode: 'NFM',
+        titlePl: 'Policja VHF analog — dolny zakres',
+        descPl: 'Skan 12,5 kHz (lokalnie też 25 kHz). Simpleks lub duosimpleks. CTCSS bywa włączony (zarządzenie KGP 22/2020). Na tym samym VHF część jednostek ma już DMR — cyfrowy trzask to nie FM.',
+        source: 'Widely reported PL Police analogue VHF (press/hobby); MSWiA, not UKE public tables'
+    },
+    {
+        group: 'police-fm', freq: '172.000–174.000 MHz', mode: 'NFM',
+        titlePl: 'Policja VHF analog — górny zakres',
+        descPl: 'Drugi klasyczny zakres analogowy FM. Skanuj wyjścia przemiennika (duosimpleks), nie wejście. W dużych miastach analog często już milczy — zastąpiły go TETRA/DMR.',
+        source: 'Widely reported PL Police analogue VHF 172–174 MHz; KGP 22/2020 still lists analogue FM'
+    },
+    {
+        group: 'police-fm', freq: 'NFM 12.5 kHz ± CTCSS', mode: 'FM analog',
+        titlePl: 'Jak nasłuchiwać',
+        descPl: 'Wąski FM, krok 12,5 kHz, squelch. Nie dekoduj TETRA ani DMR. Nie nadawaj. Nie zapisuj danych osobowych z korespondencji (PESEL, adres).',
+        source: 'KGP Ordinance 22/2020 §6 analogue + optional CTCSS; correspondence secrecy'
+    },
+
+    /* ---- Skip ---- */
+    {
+        group: 'skip', freq: '380–395 MHz', mode: 'TETRA',
+        titlePl: 'PPDR / TETRA (nie analog)',
+        descPl: 'Cyfrowy tranking służb, zwykle szyfr. Poza zakresem analog FM — nie dekoduj.',
+        source: 'European PPDR TETRA allocation (typical); KGP 22/2020 lists TETRA separately'
+    },
+    {
+        group: 'skip', freq: '460–463 / 450–453 MHz', mode: 'EDACS',
+        titlePl: 'Starszy tranking EDACS',
+        descPl: 'Nie jest analogowym simpleksem FM. Pomijamy tak samo jak TETRA.',
+        source: 'Reported PL Police EDACS trunking (legacy UHF)'
+    },
+    {
+        group: 'skip', freq: 'GSM / LTE / 5G', mode: 'cellular',
+        titlePl: 'Sieci komórkowe',
+        descPl: 'Nie skanuj i nie dekoduj. To sieć publiczna z tajemnicą korespondencji.',
+        source: 'Public mobile networks; correspondence secrecy'
+    },
+    {
+        group: 'skip', freq: 'PMR zakładów / trunking', mode: 'NFM / DMR',
+        titlePl: 'Prywatna łączność profesjonalna',
+        descPl: 'Taksówki, ochrona, logistyka — łączność niepubliczna. Nie zapisuj i nie rozpowszechniaj.',
+        source: 'Private land-mobile; KK correspondence secrecy'
+    }
 ];
 
 /* City centres (WGS-84). Locators are computed, not hard-coded. */
@@ -315,12 +695,22 @@ const FREQ_CATALOG = [
     {
         id: 'marine-vhf', name: 'Maritime VHF', group: 'VHF', kind: 'professional',
         from: 156000, to: 162050,
-        notes: 'ITU RR Appendix 18. Distress/calling ch 16 = 156.800 MHz. DSC ch 70 = 156.525 MHz. AIS1 161.975 / AIS2 162.025. Requires a maritime licence — not amateur.'
+        notes: 'ITU RR Appendix 18. Distress/calling ch 16 = 156.800 MHz. DSC ch 70 = 156.525 MHz. AIS1 161.975 / AIS2 162.025. Transmit requires a maritime licence. Receive-only does not need a radio permit in Poland (PKE art. 145).'
     },
     {
         id: 'airband', name: 'VHF airband (AM)', group: 'VHF', kind: 'professional',
         from: 117975, to: 137000,
-        notes: 'ICAO Annex 10 Vol. V: air-ground 117.975–137 MHz, AM. Emergency 121.500 MHz (guard). Not amateur. Listening may be restricted by national law.'
+        notes: 'ICAO Annex 10 Vol. V: air-ground 117.975–137 MHz, AM. Emergency 121.500 MHz (guard). Transmit requires an aeronautical operator certificate and radio permit. In Poland receive-only equipment does not need a radio permit (PKE art. 145); privacy rules still apply. Not amateur.'
+    },
+    {
+        id: 'pl-police-vhf-lo', name: 'Police analogue VHF (lower)', group: 'VHF', kind: 'professional',
+        from: 164525, to: 168475,
+        notes: 'Commonly reported Polish Police analogue FM scan range 164.525–168.475 MHz (NFM, 12.5 kHz). MSWiA assignment, not UKE amateur tables. Transmit is illegal. Same VHF may also carry DMR. Not TETRA.'
+    },
+    {
+        id: 'pl-police-vhf-hi', name: 'Police analogue VHF (upper)', group: 'VHF', kind: 'professional',
+        from: 172000, to: 174000,
+        notes: 'Commonly reported Polish Police analogue FM scan range 172.000–174.000 MHz (NFM). KGP Ordinance 22/2020 still lists analogue radio alongside DMR and TETRA. Receive-only; do not publish personal data from traffic.'
     },
     {
         id: 'fm-bc', name: 'FM broadcasting', group: 'VHF', kind: 'broadcast',

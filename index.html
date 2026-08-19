@@ -79,6 +79,7 @@
                             <ul>
                                 <li><a href="#pasma">Pasma KF/UKF</a></li>
                                 <li><a href="#czestotliwosci-pl">Częstotliwości PL</a></li>
+                                <li><a href="#nasluch">Nasłuch służb</a></li>
                                 <li><a href="#przemienniki">Przemienniki</a></li>
                                 <li><a href="#locator">Locator</a></li>
                             </ul>
@@ -120,7 +121,8 @@
                     Kompendium wiedzy o radioamatorstwie: <strong>kody Q</strong>, <strong>alfabet fonetyczny</strong>,
                     <strong>RST</strong>, zakresy pasm <strong>KF / VHF / UHF</strong>, najpopularniejsze
                     <strong>częstotliwości w Polsce</strong>, <strong>DXCC</strong>, <strong>QRZ.com</strong>,
-                    dzienniki łączności (LoTW, eQSL, ClubLog) oraz <strong>kluby krótkofalarskie</strong>.
+                    dzienniki łączności (LoTW, eQSL, ClubLog), <strong>nasłuch służb</strong>
+                    oraz <strong>kluby krótkofalarskie</strong>.
                 </p>
                 <div class="hero-cta">
                     <a href="#kody-q" class="btn btn-primary">Zobacz kody Q</a>
@@ -133,7 +135,7 @@
                     <label class="search-field global-search">
                         <span class="sr-only">Wyszukaj w całym kompendium</span>
                         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-                        <input id="global-search" type="search" placeholder="Szukaj w całym kompendium: kody Q, fonetyczny, CW, sprzęt, słownik…" autocomplete="off">
+                        <input id="global-search" type="search" placeholder="Szukaj: kody Q, 145.500, nasłuch, FT8, locator…" autocomplete="off">
                     </label>
                     <div id="global-search-results" class="global-search-results" hidden></div>
                 </div>
@@ -800,8 +802,40 @@
             </div>
         </section>
 
+        <!-- NASŁUCH -->
+        <section id="nasluch" class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Nasłuch służb — od czego zacząć</h2>
+                    <p class="section-sub">
+                        Propozycje częstotliwości do <strong>odbioru</strong> w Polsce: amatorskie, CB/PMR,
+                        morskie, lotnicze (AM), radiodyfuzja oraz <strong>analog FM policji</strong>
+                        (zakresy skanera VHF, bez TETRA). To nie jest plan kanałów komendy ani wojska.
+                        Źródła: IARU, ITU RR App.&nbsp;18, ICAO, CEPT, UM Gdynia, KGP 22/2020, PKE art.&nbsp;145.
+                    </p>
+                </div>
+
+                <div class="info-callout" style="margin-top:0">
+                    <h3>Odbiór vs nadawanie</h3>
+                    <ul>
+                        <li>Urządzenie <strong>wyłącznie odbiorcze</strong> nie wymaga pozwolenia radiowego
+                            (Prawo komunikacji elektronicznej, art.&nbsp;145).</li>
+                        <li><strong>Nadawanie</strong> na amatorskim, morskim albo lotniczym paśmie wymaga
+                            świadectwa / pozwolenia UKE. Skaner z PTT trzymaj w RX.</li>
+                        <li>W zagrożeniu życia dzwoń na <strong>112</strong>. Kanały alarmowe są uzupełnieniem,
+                            nie substytutem numeru alarmowego.</li>
+                        <li>Nie zapisuj i nie rozpowszechniaj cudzej korespondencji prywatnej
+                            (tajemnica korespondencji), w tym danych z analogu służb. Szyfru (TETRA/DMR) nie łam.
+                            Na częstotliwościach policji <strong>nie nadawaj</strong>.</li>
+                    </ul>
+                </div>
+
+                <div id="listen-guide" class="freq-grid" style="margin-top:1.4rem"></div>
+            </div>
+        </section>
+
         <!-- PRZEMIENNIKI -->
-        <section id="przemienniki" class="section section-alt">
+        <section id="przemienniki" class="section">
             <div class="container">
                 <div class="section-head">
                     <h2>Przemienniki (FM / cyfrowe)</h2>

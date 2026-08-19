@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBandTables();
     renderCityLocators();
     renderFt8List();
+    renderListenGuide();
     initHeroStats();
     initDipoleCalc();
     initWavelengthCalc();
@@ -795,6 +796,39 @@ function renderFt8List() {
     ).join('');
 }
 
+function renderListenGuide() {
+    const root = document.getElementById('listen-guide');
+    if (!root || typeof LISTEN_SPOTS === 'undefined') return;
+    const grouped = {};
+    LISTEN_SPOTS.forEach((s) => {
+        (grouped[s.group] ||= []).push(s);
+    });
+    const order = (typeof LISTEN_GROUP_ORDER !== 'undefined')
+        ? LISTEN_GROUP_ORDER
+        : Object.keys(grouped);
+    root.innerHTML = order.filter((g) => grouped[g] && grouped[g].length).map((group) => {
+        const title = (LISTEN_GROUP_PL && LISTEN_GROUP_PL[group]) || group;
+        const hint = (LISTEN_GROUP_HINT_PL && LISTEN_GROUP_HINT_PL[group]) || '';
+        const cardClass = group === 'starter' ? 'freq-card highlight'
+            : group === 'skip' ? 'freq-card alert'
+            : 'freq-card';
+        const items = grouped[group].map((s) => `
+            <li>
+                <div class="listen-head">
+                    <span class="freq clickable" title="Kliknij, aby skopiować">${escapeHTML(s.freq)}</span>
+                    <span class="listen-mode">${escapeHTML(s.mode)}</span>
+                </div>
+                <span class="desc"><strong>${escapeHTML(s.titlePl)}</strong> — ${escapeHTML(s.descPl)}</span>
+            </li>`).join('');
+        return `
+            <article class="${cardClass}">
+                <h3>${escapeHTML(title)}</h3>
+                ${hint ? `<p class="listen-hint">${escapeHTML(hint)}</p>` : ''}
+                <ul class="freq-list listen-list">${items}</ul>
+            </article>`;
+    }).join('');
+}
+
 function initSwrCalc() {
     const z0 = document.getElementById('swr-z0');
     const zl = document.getElementById('swr-zl');
@@ -931,8 +965,19 @@ function buildSearchIndex() {
         cat: 'Pasmo / służba',
         label: e.name,
         desc: e.notes || '',
-        href: e.kind === 'amateur' ? '#pasma' : '#narzedzia'
+        href: e.kind === 'amateur' ? '#pasma'
+            : (e.kind === 'professional' || e.kind === 'broadcast' || e.kind === 'license-free')
+                ? '#nasluch'
+                : '#narzedzia'
     }));
+    if (typeof LISTEN_SPOTS !== 'undefined') {
+        LISTEN_SPOTS.forEach((s) => idx.push({
+            cat: 'Nasłuch',
+            label: s.freq,
+            desc: `${s.titlePl} — ${s.descPl}`,
+            href: '#nasluch'
+        }));
+    }
     FT8_DIALS.forEach(d => idx.push({
         cat: 'FT8',
         label: formatKHz(d.khz),
